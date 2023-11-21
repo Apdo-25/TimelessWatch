@@ -1,5 +1,10 @@
 import Container from "../Container";
 import Link from "next/link";
+import { Chivo  } from "next/font/google";
+
+const chivo = Chivo ({subsets: ["latin"], 
+weight: ["400"],
+})
 
 const Navbar = () => {
     return ( 
@@ -22,11 +27,28 @@ const Navbar = () => {
                 md-gap-0
                 "
                 >
-                    <Link href="/">
+                    <Link 
+                    href="/" 
+                    passHref
+                    className={`${chivo.className} 
+                    text-2xl
+                    hover:text-gray-500
+                    `}
+                    >
                     Timeless Watch
                     </Link>
-                    <div>Search</div>
-                    <div>
+                    <div className="
+                    hidden
+                    md:block
+                    ">
+                        Search
+                    </div>
+                    <div className="
+                    flex
+                    item-center
+                    gap-8
+                    md:gap-12
+                    ">
                         <div>CartCount</div>
                         <div>UserMenu</div>
                     </div>
