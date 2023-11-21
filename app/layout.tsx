@@ -20,7 +20,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
+    <html lang="da">
       <body className={`${poppins.className} text-slate-700`}>
         <div className='flex flex-col min-h-screen'>
           <Navbar/>

@@ -25,7 +25,28 @@ export const products = [
         image: "/images/apple.jpg",
       },
     ],
-    reviews: [],
+    reviews: [
+        {
+            id: "1",
+            userId: "1",
+            productId: "1",
+            rating: 3,
+            comment: "best watch eveeer!!",
+            createdDate: "2023-07-06T06:08:33.067Z",
+            user: {
+                id: "1",
+                name: "king kong",
+                email: "kingkong@gmail.com",
+                emailVerified: null,
+                image: null,
+                hashedPassword: null,
+                createdAt: "2023-07-06T06:08:33.067Z",
+                updatedAt:"2023-07-06T06:08:33.067Z",
+                role: "Admin",
+            }
+            
+        }
+    ],
   },
     {
         id: "124",
@@ -109,7 +130,48 @@ export const products = [
             image: "/images/apple.jpg",
         },
         ],
-        reviews: [],
+        reviews: [
+            {
+                id: "1",
+                userId: "1",
+                productId: "1",
+                rating: 4,
+                comment: "best watch eveeer!!",
+                createdDate: "2023-07-06T06:08:33.067Z",
+                user: {
+                    id: "1",
+                    name: "king kong",
+                    email: "kingkong@gmail.com",
+                    emailVerified: null,
+                    image: null,
+                    hashedPassword: null,
+                    createdAt: "2023-07-06T06:08:33.067Z",
+                    updatedAt:"2023-07-06T06:08:33.067Z",
+                    role: "Admin",
+                }
+                },
+            {
+                id: "2",
+                userId: "2",
+                productId: "1",
+                rating: 4,
+                comment: "best watch eveeer!!",
+                createdDate: "2023-07-06T06:08:33.067Z",
+                user: {
+                    id: "2",
+                    name: "queen kong",
+                    email: "queenkong@gmail.com",
+                    emailVerified: null,
+                    image: null,
+                    hashedPassword: null,
+                    createdAt: "2023-07-06T06:08:33.067Z",
+                    updatedAt:"2023-07-06T06:08:33.067Z",
+                    role: "User",
+                }
+                
+            }
+
+        ],
     },
     {
         id: "127",
