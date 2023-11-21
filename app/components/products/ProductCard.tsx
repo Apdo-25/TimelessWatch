@@ -1,7 +1,9 @@
+"use client"
 import Image from "next/image";
 import { Product, Review } from "@/utils/data";
 import { formatPrice } from "@/utils/formatPrice";
 import { Rating } from "@mui/material";
+import { useRouter } from "next/navigation";
 
 interface ProductCardProps {
     data: Product & {
@@ -10,12 +12,13 @@ interface ProductCardProps {
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
+    const router = useRouter();
     const ProductRating =
         data.reviews.reduce((acc, item) => item.rating + acc, 0) / data.reviews.length;
 
         return (
             <div
-              onClick={`/product/${data.id}`}
+              onClick={() => router.push(`/product/${data.id}`)}
               className="
                 col-span-1
                 cursor-pointer
