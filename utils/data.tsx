@@ -7,6 +7,7 @@ export const products = [
     category: "Watch",
     brand: "Apple",
     inStock: true,
+    isOnSale: true,
     images: [
       {
         color: "gray",
@@ -34,6 +35,7 @@ export const products = [
         category: "Watch",
         brand: "Rolex",
         inStock: true,
+        isOnSale: false,
         images: [
         {
             color: "gray",
@@ -61,6 +63,7 @@ export const products = [
         category: "Watch",
         brand: "Omega",
         inStock: true,
+        isOnSale: true,
         images: [
         {
             color: "gray",
@@ -88,6 +91,7 @@ export const products = [
         category: "Watch",
         brand: "Casio",
         inStock: true,
+        isOnSale: false,
         images: [
         {
             color: "gray",
@@ -115,6 +119,7 @@ export const products = [
         category: "Watch",
         brand: "Patek Philippe",
         inStock: true,
+        isOnSale: false,
         images: [
         {
             color: "gray",
