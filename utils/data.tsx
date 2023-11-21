@@ -11,17 +11,17 @@ export const products = [
       {
         color: "gray",
         colorCode: "#d1d5db",
-        image: "/images/rolex.jpg",
+        image: "/images/apple.jpg",
       },
       {
         color: "black",
         colorCode: "#111827",
-        image: "/images/rolex.jpg",
+        image: "/images/apple.jpg",
       },
       {
         color: "white",
         colorCode: "#ffffff",
-        image: "/images/rolex.jpg",
+        image: "/images/apple.jpg",
       },
     ],
     reviews: [],
@@ -38,17 +38,17 @@ export const products = [
         {
             color: "gray",
             colorCode: "#d1d5db",
-            image: "/images/rolex.jpg",
+            image: "/images/apple.jpg",
         },
         {
             color: "black",
             colorCode: "#111827",
-            image: "/images/rolex.jpg",
+            image: "/images/apple.jpg",
         },
         {
             color: "white",
             colorCode: "#ffffff",
-            image: "/images/rolex.jpg",
+            image: "/images/apple.jpg",
         },
         ],
         reviews: [],
@@ -65,17 +65,17 @@ export const products = [
         {
             color: "gray",
             colorCode: "#d1d5db",
-            image: "/images/rolex.jpg",
+            image: "/images/apple.jpg",
         },
         {
             color: "black",
             colorCode: "#111827",
-            image: "/images/rolex.jpg",
+            image: "/images/apple.jpg",
         },
         {
             color: "white",
             colorCode: "#ffffff",
-            image: "/images/rolex.jpg",
+            image: "/images/apple.jpg",
         },
         ],
         reviews: [],
@@ -92,17 +92,17 @@ export const products = [
         {
             color: "gray",
             colorCode: "#d1d5db",
-            image: "/images/rolex.jpg",
+            image: "/images/apple.jpg",
         },
         {
             color: "black",
             colorCode: "#111827",
-            image: "/images/rolex.jpg",
+            image: "/images/apple.jpg",
         },
         {
             color: "white",
             colorCode: "#ffffff",
-            image: "/images/rolex.jpg",
+            image: "/images/apple.jpg",
         },
         ],
         reviews: [],
@@ -119,17 +119,17 @@ export const products = [
         {
             color: "gray",
             colorCode: "#d1d5db",
-            image: "/images/rolex.jpg",
+            image: "/images/apple.jpg",
         },
         {
             color: "black",
             colorCode: "#111827",
-            image: "/images/rolex.jpg",
+            image: "/images/apple.jpg",
         },
         {
             color: "white",
             colorCode: "#ffffff",
-            image: "/images/rolex.jpg",
+            image: "/images/apple.jpg",
         },
         ],
         reviews: [
