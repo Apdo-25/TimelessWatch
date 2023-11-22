@@ -17,12 +17,12 @@ export const product = {
     {
       color: "black",
       colorCode: "#111827",
-      image: "/images/apple.jpg",
+      image: "/images/white.jpg",
     },
     {
       color: "white",
       colorCode: "#ffffff",
-      image: "/images/apple.jpg",
+      image: "/images/white.jpg",
     },
   ],
   reviews: [

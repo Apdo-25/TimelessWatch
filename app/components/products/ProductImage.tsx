@@ -43,7 +43,17 @@ const ProductIamge: React.FC<ProductImageProps> = ({
           );
         })}
       </div>
-      <div></div>
+      <div className="col-span-5 relative aspect-square">
+        <Image fill src={cartProduct.selectedImage.image} 
+        alt={cartProduct.selectedImage.color}
+        className=" 
+        w-full
+        h-full
+        object-contain
+        max-h-[500px] min-h-[300px] sm:min-h-[400px] 
+        "
+        />
+      </div>
     </div>
   );
 };
