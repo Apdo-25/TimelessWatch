@@ -1,8 +1,10 @@
 "use client"
 
-import SetColor from "@/app/components/products/setColor";
+import SetQuantity from "@/app/components/products/SetQuantity";
+import SetColor from "@/app/components/products/SetColor";
 import { Rating } from "@mui/material";
 import { useCallback, useState } from "react";
+import Button from "@/app/components/Button";
 
 
 
@@ -55,6 +57,31 @@ const ProductDetails: React.FC<ProductDetailsProps> = ( { product }) => {
         []
       );
 
+      const handleQtyIncrease = useCallback(() => {
+
+        //limit product to 10 /test
+        if (cartProduct.quantity === 10) {
+            return 
+        }
+
+        setCartProduct((prev) => {
+          return { ...prev, quantity: prev.quantity + 1 };
+        });
+      }, [cartProduct])
+      const handleQtyDecrease = useCallback(() => {
+
+        //cant go in minus
+        if (cartProduct.quantity === 1) {
+            return 
+        }
+
+        setCartProduct((prev) => {
+          return { ...prev, quantity: prev.quantity - 1 };
+        });
+      }, [cartProduct])
+
+      console.log(product);
+
     return ( 
     <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
         <div>Images</div>
@@ -86,9 +113,21 @@ const ProductDetails: React.FC<ProductDetailsProps> = ( { product }) => {
             handleColorSelect={handleColorSelect}
             />
             <Horizline />
-            <div>quantity</div>
+            <SetQuantity 
+            cartProduct={cartProduct}
+            handleQtyDecrease={
+                handleQtyDecrease
+            }
+            handleQtyIncrease={
+                handleQtyIncrease
+            }
+            />
             <Horizline />
-            <div>add to cart</div>
+            <div className="max-w-[300px]">
+            <Button
+            label="Add to cart"
+            onClick={() => {console.log(cartProduct);}}/>
+            </div>
         </div>
     </div> 
     );
