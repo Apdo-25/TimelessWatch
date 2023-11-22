@@ -34,9 +34,7 @@ const Footer = () => {
                 quae voluptates, voluptatum, quod voluptate voluptatibus quia
                 doloribus eum quos nulla.
               </p>
-              <p className="text-sm">
-                &copy; {new Date().getFullYear()} Timeless~Watch. All rights reserved.
-              </p>
+             
             </div>
             <FooterList>
               <h3 className="text-base font-bold mb-2">Follow Us</h3>
@@ -56,6 +54,9 @@ const Footer = () => {
               </div>
             </FooterList>
           </div>
+          <p className="text-sm text-center">
+                &copy; {new Date().getFullYear()} Timeless~Watch. All rights reserved.
+              </p>
         </Container>
       </footer>
     );

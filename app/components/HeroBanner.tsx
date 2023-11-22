@@ -2,7 +2,7 @@ import Image from "next/image";
 
 const HeroBanner = () => {
     return (
-        <div className="banner relative bg-gradient-to-r from-sky-500 to-sky-700 mb-8">
+        <div className="banner relative bg-gradient-to-r from-sky-500 to-sky-700 mb-8 border-[1.2px] rounded-md">
             <div className="container mx-auto px-4 lg:px-8 py-12 flex flex-col-reverse md:flex-row items-center justify-between">
                 <div className="text-center md:text-left md:w-1/2">
                     <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">

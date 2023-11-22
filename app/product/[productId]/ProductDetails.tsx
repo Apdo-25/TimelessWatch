@@ -1,11 +1,10 @@
 "use client"
-
 import SetQuantity from "@/app/components/products/SetQuantity";
 import SetColor from "@/app/components/products/SetColor";
 import { Rating } from "@mui/material";
 import { useCallback, useState } from "react";
 import Button from "@/app/components/Button";
-
+import { formatPrice } from "@/utils/formatPrice";
 
 
 export type CartProductType = {
@@ -87,6 +86,13 @@ const ProductDetails: React.FC<ProductDetailsProps> = ( { product }) => {
         <div>Images</div>
         <div className="flex flex-col gap-1 text-slate-500 text-sm">
             <h2 className="text-3xl font-medium text-slate-700">{product.name}</h2>
+            <div className="
+            text-2xl
+            font-semibold
+            text-teal-400
+            ">
+                {formatPrice(product.price)}
+            </div>
             <div className="flex items-center gap-2">
                 <Rating value={ProductRating} readOnly />
                 <div className="text-slate-600 ml-2">{product.reviews.length} reviews</div>

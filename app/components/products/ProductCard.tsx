@@ -4,6 +4,7 @@ import { Product, Review } from "@/utils/data";
 import { formatPrice } from "@/utils/formatPrice";
 import { Rating } from "@mui/material";
 import { useRouter } from "next/navigation";
+import Button from "../Button";
 
 interface ProductCardProps {
     data: Product & {
@@ -56,9 +57,13 @@ const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
                 <div className="mt-4">{(data.name)}</div>
                 <Rating value={ProductRating} readOnly />
                 <div>{data.reviews.length} reviews</div>
-                <div className="font-semibold">{formatPrice(data.price)}</div>
+                <div className="font-semibold text-teal-400">{formatPrice(data.price)}</div>
+                <Button label="Add to Cart" 
+                small
+                />
               </div>
             </div>
+            
           );
         };
 
