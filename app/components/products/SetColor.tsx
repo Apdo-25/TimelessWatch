@@ -1,28 +1,31 @@
-"use client"
+"use client";
 
-import { CartProductType, SelectedImage } from "@/app/product/[productId]/ProductDetails";
+import {
+  CartProductType,
+  SelectedImageType,
+} from "@/app/product/[productId]/ProductDetails";
 
-interface SetColorProps{
-    images:SelectedImage[];
-    cartProduct: CartProductType;
-    handleColorSelect: (value: SelectedImage) => void
+interface SetColorProps {
+  images: SelectedImageType[];
+  cartProduct: CartProductType;
+  handleColorSelect: (value: SelectedImageType) => void;
 }
 
 const SetColor: React.FC<SetColorProps> = ({
-    images,
-    cartProduct,
-    handleColorSelect,
+  images,
+  cartProduct,
+  handleColorSelect,
 }) => {
-    return (
-        <div>
-          <div className="flex gap-4 items-center">
-            <span className="font-semibold">COLOR:</span>
-            <div className="flex gap-1">
-              {images.map((image) => (
-                <div
-                  key={image.color}
-                  onClick={() => handleColorSelect(image)}
-                  className={`
+  return (
+    <div>
+      <div className="flex gap-4 items-center">
+        <span className="font-semibold">COLOR:</span>
+        <div className="flex gap-1">
+          {images.map((image) => (
+            <div
+              key={image.color}
+              onClick={() => handleColorSelect(image)}
+              className={`
                 h-7
                 w-7
                 rounded-full
@@ -36,23 +39,23 @@ const SetColor: React.FC<SetColorProps> = ({
                     : "border-none"
                 }
                 `}
-                >
-                  <div
-                    style={{ background: image.colorCode }}
-                    className={`
+            >
+              <div
+                style={{ background: image.colorCode }}
+                className={`
                   h-5
                   w-5
                   rounded-full
                   border-[1.2px]
                   border-slate-300
                   cursor-pointer`}
-                  ></div>
-                </div>
-              ))}
+              ></div>
             </div>
-          </div>
+          ))}
         </div>
-      );
-    };
- 
+      </div>
+    </div>
+  );
+};
+
 export default SetColor;

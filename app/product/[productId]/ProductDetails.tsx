@@ -5,6 +5,7 @@ import { Rating } from "@mui/material";
 import { useCallback, useState } from "react";
 import Button from "@/app/components/Button";
 import { formatPrice } from "@/utils/formatPrice";
+import ProductImage from "@/app/components/products/ProductImage";
 
 
 export type CartProductType = {
@@ -13,12 +14,12 @@ export type CartProductType = {
     description: string;
     category: string;
     brand: string;
-    selectedImage: SelectedImage;
+    selectedImage: SelectedImageType;
     quantity: number;
     price: number;
 }
 
-export type SelectedImage = {
+export type SelectedImageType = {
     color: string;
     colorCode: string;
     image: string;
@@ -48,7 +49,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ( { product }) => {
     const ProductRating = product.reviews.reduce((acc, item) => item.rating + acc, 0) / product.reviews.length;
 
     const handleColorSelect = useCallback(
-        (value: SelectedImage) => {
+        (value: SelectedImageType) => {
           setCartProduct((prev) => {
             return { ...prev, selectedImage: value };
           });
@@ -83,7 +84,11 @@ const ProductDetails: React.FC<ProductDetailsProps> = ( { product }) => {
 
     return ( 
     <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-        <div>Images</div>
+        <ProductImage 
+        cartProduct={cartProduct}
+        product={product}
+        handleColorSelect={handleColorSelect}
+        />
         <div className="flex flex-col gap-1 text-slate-500 text-sm">
             <h2 className="text-3xl font-medium text-slate-700">{product.name}</h2>
             <div className="
