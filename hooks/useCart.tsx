@@ -2,8 +2,8 @@ import { CartProductType } from "@/app/product/[productId]/ProductDetails";
 import { createContext, useCallback, useContext, useState } from "react";
 
 type CartContextType = {
+    cart: CartProductType[];
     cartTotalQty: number;
-    cartProducts: CartProductType;
     handleAddProductToCart: (product: CartProductType) => void
 }
 
