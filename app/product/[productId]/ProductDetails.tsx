@@ -6,6 +6,7 @@ import { useCallback, useState } from "react";
 import Button from "@/app/components/Button";
 import { formatPrice } from "@/utils/formatPrice";
 import ProductImage from "@/app/components/products/ProductImage";
+import { useCart } from "@/hooks/useCart";
 
 
 export type CartProductType = {
@@ -35,6 +36,7 @@ const Horizline = () => {
 
 const ProductDetails: React.FC<ProductDetailsProps> = ( { product }) => {
 
+   
     const [cartProduct, setCartProduct] = useState<CartProductType>({
         id: product.id,
         name: product.name,
@@ -80,7 +82,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ( { product }) => {
         });
       }, [cartProduct])
 
-      console.log(product);
+   
 
     return ( 
     <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
