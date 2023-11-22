@@ -1,4 +1,27 @@
+"use client"
+
+import SetColor from "@/app/components/products/setColor";
 import { Rating } from "@mui/material";
+import { useCallback, useState } from "react";
+
+
+
+export type CartProductType = {
+    id: string;
+    name: string;
+    description: string;
+    category: string;
+    brand: string;
+    selectedImage: SelectedImage;
+    quantity: number;
+    price: number;
+}
+
+export type SelectedImage = {
+    color: string;
+    colorCode: string;
+    image: string;
+}
 
 interface ProductDetailsProps {
     product: any;
@@ -10,8 +33,27 @@ const Horizline = () => {
 
 const ProductDetails: React.FC<ProductDetailsProps> = ( { product }) => {
 
-    const ProductRating =
-    product.reviews.reduce((acc, item) => item.rating + acc, 0) / product.reviews.length;
+    const [cartProduct, setCartProduct] = useState<CartProductType>({
+        id: product.id,
+        name: product.name,
+        description: product.description,
+        category: product.category,
+        brand: product.brand,
+        selectedImage: {...product.images[0]},
+        quantity: 1,
+        price: product.price,
+    })
+
+    const ProductRating = product.reviews.reduce((acc, item) => item.rating + acc, 0) / product.reviews.length;
+
+    const handleColorSelect = useCallback(
+        (value: SelectedImage) => {
+          setCartProduct((prev) => {
+            return { ...prev, selectedImage: value };
+          });
+        },
+        []
+      );
 
     return ( 
     <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
@@ -38,7 +80,11 @@ const ProductDetails: React.FC<ProductDetailsProps> = ( { product }) => {
                 {product.inStock ? "In stock" : "Out of stock"}
             </div>
             <Horizline />
-            <div>color</div>
+            <SetColor 
+            images={product.images}
+            cartProduct={cartProduct}
+            handleColorSelect={handleColorSelect}
+            />
             <Horizline />
             <div>quantity</div>
             <Horizline />
