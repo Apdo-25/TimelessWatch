@@ -126,12 +126,8 @@ const ProductDetails: React.FC<ProductDetailsProps> = ( { product }) => {
             <Horizline />
             <SetQuantity 
             cartProduct={cartProduct}
-            handleQtyDecrease={
-                handleQtyDecrease
-            }
-            handleQtyIncrease={
-                handleQtyIncrease
-            }
+            handleQtyDecrease={handleQtyDecrease}
+            handleQtyIncrease={handleQtyIncrease}
             />
             <Horizline />
             <div className="max-w-[300px]">
