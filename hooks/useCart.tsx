@@ -1,12 +1,12 @@
-import { CartProductType } from "@/app/product/[productId]/ProductDetails";
+import { CartProduct } from "@/app/product/[productId]/ProductDetails";
 import { createContext, useCallback, useContext, useEffect, useState } from "react";
 
 import { toast } from "react-hot-toast";
 
 type CartContextType = {
-    cartProducts: CartProductType[];
+    cartProducts: CartProduct[];
     cartTotalQty: number;
-    handleAddProductToCart: (product: CartProductType) => void
+    handleAddProductToCart: (product: CartProduct) => void
 }
 
 export const CartContext = createContext<CartContextType | null>(null);
@@ -17,17 +17,17 @@ export interface Props {
 
 export const CartContextProvider = (props: Props) => {
     const [cartTotalQty, setCartTotalQty] = useState(0)
-    const [cartProducts, setCartProducts] = useState<CartProductType[] | null>(null);
+    const [cartProducts, setCartProducts] = useState<CartProduct[] | null>(null);
 
     useEffect(() => {
         const cartItems: any = localStorage.getItem('timelessWatchItems');
-        const cProducts: CartProductType[] | null = JSON.parse(cartItems)
+        const cProducts: CartProduct[] | null = JSON.parse(cartItems)
 
         setCartProducts(cProducts)
         
     }, [])
 
-    const handleAddProductToCart = useCallback((product: CartProductType) => {
+    const handleAddProductToCart = useCallback((product: CartProduct) => {
         setCartProducts((prev) => {
             let updatedCart;
 
