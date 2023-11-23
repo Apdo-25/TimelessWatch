@@ -3,7 +3,7 @@ import { formatPrice } from "@/utils/formatPrice";
 import { CartProductType } from "../product/[productId]/ProductDetails";
 
 interface ItemContentProps {
-    item: CartProductType
+    item: CartProduct
 }
 const ItemContent: React.FC<ItemContentProps> = ({
     item

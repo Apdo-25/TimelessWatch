@@ -12,7 +12,10 @@ const poppins = Poppins({ subsets: ['latin'],
  })
 
 export const metadata: Metadata = {
-  title: 'Timeless Watch',
+  title: {
+    template: '%s | Timeless Watch',
+    default: 'Timeless Watch',
+  },
   description: 'Ecommerce Watch App',
 }
 

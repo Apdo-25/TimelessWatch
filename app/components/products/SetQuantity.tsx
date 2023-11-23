@@ -1,9 +1,9 @@
-import { CartProductType } from '../../product/[productId]/ProductDetails';
+import { CartProduct } from '../../product/[productId]/ProductDetails';
 "use client"
 
 interface SetQtyProps {
     cartCounter?: boolean;
-    cartProduct: CartProductType;
+    cartProduct: CartProduct;
     handleQtyIncrease: () => void
     handleQtyDecrease: () => void
 }

@@ -10,15 +10,15 @@ import { useCart } from "@/hooks/useCart";
 import { MdCheckCircle } from "react-icons/md";
 import { useRouter } from "next/navigation";
 
-export type CartProductType = {
+export type CartProduct = {
   id: string;
   name: string;
+  price: number;
   description: string;
   category: string;
   brand: string;
   selectedImage: SelectedImageType;
   quantity: number;
-  price: number;
 };
 
 export type SelectedImageType = {
@@ -40,7 +40,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
 
   const [isProductInCart, setIsProductInCart] = useState(false);
 
-  const [cartProduct, setCartProduct] = useState<CartProductType>({
+  const [cartProduct, setCartProduct] = useState<CartProduct>({
     id: product.id,
     name: product.name,
     description: product.description,

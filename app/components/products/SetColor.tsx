@@ -1,13 +1,13 @@
 "use client";
 
 import {
-  CartProductType,
+  CartProduct,
   SelectedImageType,
 } from "@/app/product/[productId]/ProductDetails";
 
 interface SetColorProps {
   images: SelectedImageType[];
-  cartProduct: CartProductType;
+  cartProduct: CartProduct;
   handleColorSelect: (value: SelectedImageType) => void;
 }
 
