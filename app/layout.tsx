@@ -4,6 +4,7 @@ import { Poppins } from 'next/font/google'
 import Navbar from './components/navbar/NavBar';
 import Footer from './components/footer/Footer';
 import CartProvider from '@/providers/CartProvider';
+import { Toaster } from 'react-hot-toast';
 
 const poppins = Poppins({ subsets: ['latin'],
   weight: ["400", "700",],
@@ -23,6 +24,13 @@ export default function RootLayout({
   return (
     <html lang="da">
       <body className={`${poppins.className} text-slate-700`}>
+        <Toaster toastOptions={{ 
+          style: {
+            borderRadius: '10px',
+            background: '#333',
+            color: '#fff',
+          },
+         }}/>
         <CartProvider>
         <div className='flex flex-col min-h-screen'>
           <Navbar/>
