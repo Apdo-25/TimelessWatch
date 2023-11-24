@@ -1,11 +1,11 @@
 import Container from "@/app/components/Container";
 import ProductDetails from "./ProductDetails";
-import { product } from "@/utils/product";
 import ListRating from "./ListRating";
+import { products } from "@/utils/data";
 import { Metadata } from "next";
 
 interface IPrams {
-  productId: string;
+  productId?: string;
 }
 
 export const metadata: Metadata = {
@@ -14,6 +14,7 @@ export const metadata: Metadata = {
 };
 
 const Product = ({ params }: { params: IPrams }) => {
+  const product = products.find((item) => item.id === params.productId);
   return (
     <div>
       <Container>

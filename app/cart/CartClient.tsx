@@ -7,13 +7,7 @@ import ItemContent from "../cart/ItemContent";
 import { formatPrice } from "../../utils/formatPrice";
 
 const CartClient = () => {
-  const { cartProducts, handleClearCart } = useCart();
-
-  const cartTotal =
-    cartProducts &&
-    cartProducts.reduce((acc, item) => {
-      return acc + item.price * item.quantity;
-    }, 0);
+  const { cartProducts, handleClearCart, cartTotalAmount } = useCart();
 
   if (!cartProducts || cartProducts.length === 0) {
     return (
@@ -61,7 +55,7 @@ const CartClient = () => {
         <div className="text-sm flex flex-col gap-1 items-start">
           <div className="flex justify-between w-full text-base font-semibold">
             <span>Subtotal</span>
-            <span>{formatPrice(cartTotal)}</span>
+            <span>{formatPrice(cartTotalAmount)}</span>
           </div>
           <p className="text-slate-500">
             Taxes and shipping calculated at checkout

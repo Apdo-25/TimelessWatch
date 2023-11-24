@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import SetQuantity from "../components/products/SetQuantity";
 import { useCart } from "@/hooks/useCart";
+import { formatPrice } from "../../utils/formatPrice";
 
 interface ItemContentProps {
   item: CartProduct;
@@ -57,7 +58,7 @@ const ItemContent: React.FC<ItemContentProps> = ({ item }) => {
           </div>
         </div>
       </div>
-      <div className="justify-self-center">{item.price.toFixed(2)}</div>
+      <div className="justify-self-center">{formatPrice(item.price)}</div>
       <div className="justify-self-center">
         <SetQuantity
           cartCounter={true}
@@ -71,7 +72,7 @@ const ItemContent: React.FC<ItemContentProps> = ({ item }) => {
         />
       </div>
       <div className="justify-self-end font-semibold">
-        {(item.price * item.quantity).toFixed(2)}
+        {formatPrice(item.price * item.quantity)}
       </div>
     </div>
   );

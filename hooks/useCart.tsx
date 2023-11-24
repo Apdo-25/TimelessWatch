@@ -12,6 +12,7 @@ import { toast } from "react-hot-toast";
 type CartContextType = {
   cartProducts: CartProduct[] | null;
   cartTotalQty: number;
+  cartTotalAmount: number;
   handleAddProductToCart: (product: CartProduct) => void;
   handleRemoveProductFromCart: (product: CartProduct) => void;
   handleCartQtyIncrease: (product: CartProduct) => void;
@@ -28,6 +29,7 @@ export interface Props {
 export const CartContextProvider = (props: Props) => {
   const [cartTotalQty, setCartTotalQty] = useState(0);
   const [cartProducts, setCartProducts] = useState<CartProduct[] | null>(null);
+  const [cartTotalAmount, setCartTotalAmount] = useState(0);
 
   useEffect(() => {
     const cartItems: any = localStorage.getItem("timelessWatchItems");
@@ -35,6 +37,32 @@ export const CartContextProvider = (props: Props) => {
 
     setCartProducts(cProducts);
   }, []);
+
+  useEffect(() => {
+    const getTotals = () => {
+      if (cartProducts) {
+        const { total, qty } = cartProducts.reduce(
+          (acc, item) => {
+            const itemTotal = item.price * item.quantity;
+
+            acc.total += itemTotal;
+            acc.qty += item.quantity;
+
+            return acc;
+          },
+          {
+            total: 0,
+            qty: 0,
+          }
+        );
+
+        setCartTotalAmount(parseFloat(total.toFixed(2)));
+        setCartTotalQty(qty);
+      }
+    };
+
+    getTotals();
+  }, [cartProducts]);
 
   const handleAddProductToCart = useCallback((product: CartProduct) => {
     setCartProducts((prev) => {
@@ -130,6 +158,7 @@ export const CartContextProvider = (props: Props) => {
     setCartProducts(null);
     setCartTotalQty(0);
     localStorage.setItem("eShopCartItems", JSON.stringify(null));
+    toast.success("Cart cleared");
   }, [cartProducts]);
 
   const value = {
@@ -140,6 +169,7 @@ export const CartContextProvider = (props: Props) => {
     handleCartQtyIncrease,
     handleCartQtyDecrease,
     handleClearCart,
+    cartTotalAmount,
   };
 
   return <CartContext.Provider value={value} {...props} />;

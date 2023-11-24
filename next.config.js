@@ -3,9 +3,10 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
-        domain: "images.unsplash.com",
-        path: "/photo-:id",
-        protocol: "https",
+        hostname:
+          process.env.NODE_ENV === "production"
+            ? "https://cdn.jsdelivr.net"
+            : "http://localhost:3000",
       },
     ],
   },
