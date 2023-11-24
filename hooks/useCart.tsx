@@ -157,7 +157,7 @@ export const CartContextProvider = (props: Props) => {
   const handleClearCart = useCallback(() => {
     setCartProducts(null);
     setCartTotalQty(0);
-    localStorage.setItem("eShopCartItems", JSON.stringify(null));
+    localStorage.setItem("timelessWatchItems", JSON.stringify(null));
     toast.success("Cart cleared");
   }, [cartProducts]);
 
