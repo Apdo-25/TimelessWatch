@@ -3,18 +3,18 @@ import CartClient from "./CartClient";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-    title: "Cart",
-    description: "Cart",
-}
+  title: "Cart",
+  description: "Cart",
+};
 
 const Cart = () => {
-    return ( 
+  return (
     <div className="pt-8">
-        <Container>
-            <CartClient/>
-        </Container>
-    </div> 
-    );
-}
- 
+      <Container>
+        <CartClient />
+      </Container>
+    </div>
+  );
+};
+
 export default Cart;

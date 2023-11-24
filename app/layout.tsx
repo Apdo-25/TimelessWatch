@@ -1,47 +1,50 @@
-import './globals.css'
-import type { Metadata } from 'next'
-import { Poppins } from 'next/font/google'
-import Navbar from './components/navbar/NavBar';
-import Footer from './components/footer/Footer';
-import CartProvider from '@/providers/CartProvider';
-import { Toaster } from 'react-hot-toast';
+import "./globals.css";
+import type { Metadata } from "next";
+import { Poppins } from "next/font/google";
+import Navbar from "./components/navbar/NavBar";
+import Footer from "./components/footer/Footer";
+import CartProvider from "@/providers/CartProvider";
+import { Toaster } from "react-hot-toast";
 
-const poppins = Poppins({ subsets: ['latin'],
-  weight: ["400", "700",],
-  display: 'swap',
- })
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: {
-    template: '%s | Timeless Watch',
-    default: 'Timeless Watch',
+    template: "%s | Timeless Watch",
+    default: "Timeless Watch",
   },
-  description: 'Ecommerce Watch App',
-}
+  description: "Ecommerce Watch App",
+};
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <html lang="da">
       <body className={`${poppins.className} text-slate-700`}>
-        <Toaster toastOptions={{ 
-          style: {
-            borderRadius: '10px',
-            background: '#333',
-            color: '#fff',
-          },
-         }}/>
+        <Toaster
+          toastOptions={{
+            style: {
+              borderRadius: "10px",
+              background: "#333",
+              color: "#fff",
+            },
+          }}
+        />
         <CartProvider>
-        <div className='flex flex-col min-h-screen'>
-          <Navbar/>
-          <main className='flex-grow'>{children}</main>
-          <Footer/>
-        </div>
+          <div className="flex flex-col min-h-screen">
+            <Navbar />
+            <main className="flex-grow">{children}</main>
+            <Footer />
+          </div>
         </CartProvider>
-        </body>
+      </body>
     </html>
-  )
+  );
 }

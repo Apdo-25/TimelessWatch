@@ -2,12 +2,19 @@
 import { CartProduct } from "../product/[productId]/ProductDetails";
 import Image from "next/image";
 import Link from "next/link";
+import SetQuantity from "../components/products/SetQuantity";
+import { useCart } from "@/hooks/useCart";
 
 interface ItemContentProps {
   item: CartProduct;
 }
 
 const ItemContent: React.FC<ItemContentProps> = ({ item }) => {
+  const {
+    handleRemoveProductFromCart,
+    handleCartQtyIncrease,
+    handleCartQtyDecrease,
+  } = useCart();
   return (
     <div
       className="grid
@@ -38,12 +45,12 @@ const ItemContent: React.FC<ItemContentProps> = ({ item }) => {
           </div>
         </Link>
         <div className="flex flex-col justify-between">
-          <Link href={`/product/${item.id}`}>{(item.name)}</Link>
+          <Link href={`/product/${item.id}`}>{item.name}</Link>
           <div>{item.selectedImage.color}</div>
           <div className="w-[70px]">
             <button
               className="text-slate-500 underline"
-              onClick={() => {}}
+              onClick={() => handleRemoveProductFromCart(item)}
             >
               Remove
             </button>
@@ -52,6 +59,16 @@ const ItemContent: React.FC<ItemContentProps> = ({ item }) => {
       </div>
       <div className="justify-self-center">{item.price.toFixed(2)}</div>
       <div className="justify-self-center">
+        <SetQuantity
+          cartCounter={true}
+          cartProduct={item}
+          handleQtyIncrease={() => {
+            handleCartQtyIncrease(item);
+          }}
+          handleQtyDecrease={() => {
+            handleCartQtyDecrease(item);
+          }}
+        />
       </div>
       <div className="justify-self-end font-semibold">
         {(item.price * item.quantity).toFixed(2)}
