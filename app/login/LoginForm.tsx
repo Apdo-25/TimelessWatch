@@ -6,7 +6,7 @@ import Input from "../components/inputs/Input";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import Link from "next/link";
 
-const RegisterForm = () => {
+const LoginForm = () => {
   const [isLoading, setIsLoading] = useState(false);
   const {
     register,
@@ -21,16 +21,8 @@ const RegisterForm = () => {
 
   return (
     <>
-      <Heading title="Sign up for Timeless~Watch" />
+      <Heading title="Sign in to Timeless~Watch" />
       <hr className="bg-slate-300 w-full h-px" />
-      <Input
-        id="name"
-        label="Name"
-        disabled={isLoading}
-        register={register}
-        errors={errors}
-        required
-      />
       <Input
         id="email"
         label="Email"
@@ -50,9 +42,9 @@ const RegisterForm = () => {
       />
       <hr className="bg-slate-300 w-full h-px" />
       <p className="text-center text-slate-500">
-        Already have an account?{" "}
-        <Link href="/login" className="text-slate-600 hover:underline">
-          Login
+        Dont have an Account?{" "}
+        <Link href="/register" className="text-slate-600 hover:underline">
+          Register
         </Link>
       </p>
       <button
@@ -60,10 +52,10 @@ const RegisterForm = () => {
         className="bg-slate-500 text-white w-full py-2 rounded-md"
         disabled={isLoading}
       >
-        {isLoading ? "Loading..." : "Register"}
+        {isLoading ? "Loading..." : "Login"}
       </button>
     </>
   );
 };
 
-export default RegisterForm;
+export default LoginForm;
