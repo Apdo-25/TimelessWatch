@@ -1,5 +1,4 @@
 "use client";
-
 import { useState } from "react";
 import Heading from "../components/Heading";
 import Input from "../components/inputs/Input";
@@ -15,11 +14,16 @@ const RegisterForm = () => {
     formState: { errors },
   } = useForm<FieldValues>({
     defaultValues: {
+      name: "",
       email: "",
       password: "",
     },
   });
 
+  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+    setIsLoading(true);
+    console.log(data);
+  };
   return (
     <>
       <Heading title="Sign up for Timeless~Watch" />
@@ -56,7 +60,10 @@ const RegisterForm = () => {
           Login
         </Link>
       </p>
-      <Button label={isLoading ? "Loading..." : "Register"}></Button>
+      <Button
+        label={isLoading ? "Loading..." : "Register"}
+        onClick={handleSubmit(onSubmit)}
+      />
     </>
   );
 };

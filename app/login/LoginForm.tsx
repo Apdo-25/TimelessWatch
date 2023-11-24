@@ -19,6 +19,11 @@ const LoginForm = () => {
     },
   });
 
+  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+    setIsLoading(true);
+    console.log(data);
+  };
+
   return (
     <>
       <Heading title="Sign in to Timeless~Watch" />
@@ -47,7 +52,10 @@ const LoginForm = () => {
           Register
         </Link>
       </p>
-      <Button label={isLoading ? "Loading..." : "Login"}></Button>
+      <Button
+        label={isLoading ? "Loading..." : "Login"}
+        onClick={handleSubmit(onSubmit)}
+      />
     </>
   );
 };
