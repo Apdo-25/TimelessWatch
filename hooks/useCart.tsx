@@ -159,7 +159,7 @@ export const CartContextProvider = (props: Props) => {
     setCartTotalQty(0);
     localStorage.setItem("timelessWatchItems", JSON.stringify(null));
     toast.success("Cart cleared");
-  }, [cartProducts]);
+  }, []);
 
   const value = {
     cartTotalQty,
