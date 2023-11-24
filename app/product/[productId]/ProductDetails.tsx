@@ -32,7 +32,7 @@ interface ProductDetailsProps {
 }
 
 const Horizline = () => {
-  return <hr className="w-[30%] my-2" />;
+    return <hr className="w-[30%] mt-2 mb-2" />;
 };
 
 const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
@@ -53,7 +53,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
 
   const router = useRouter()
 
-  console.log(cartProducts);
+  console.log(product);
 
   //check if product is in cart
   useEffect(() => {
@@ -68,7 +68,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
         setIsProductInCart(true);
       }
     }
-  }, [cartProducts, product.id]);
+  }, [cartProducts]);
 
   const ProductRating =
     product.reviews.reduce((acc, item) => item.rating + acc, 0) /

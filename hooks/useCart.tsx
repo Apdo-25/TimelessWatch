@@ -4,7 +4,7 @@ import { createContext, useCallback, useContext, useEffect, useState } from "rea
 import { toast } from "react-hot-toast";
 
 type CartContextType = {
-    cartProducts: CartProduct[];
+    cartProducts: CartProduct[]  | null;
     cartTotalQty: number;
     handleAddProductToCart: (product: CartProduct) => void
 }
