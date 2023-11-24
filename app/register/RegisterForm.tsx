@@ -5,6 +5,7 @@ import Heading from "../components/Heading";
 import Input from "../components/inputs/Input";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import Link from "next/link";
+import Button from "../components/Button";
 
 const RegisterForm = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -51,17 +52,11 @@ const RegisterForm = () => {
       <hr className="bg-slate-300 w-full h-px" />
       <p className="text-center text-slate-500">
         Already have an account?{" "}
-        <Link href="/login" className="text-slate-600 hover:underline">
+        <Link href="/login" className="text-slate-600 underline">
           Login
         </Link>
       </p>
-      <button
-        type="submit"
-        className="bg-slate-500 text-white w-full py-2 rounded-md"
-        disabled={isLoading}
-      >
-        {isLoading ? "Loading..." : "Register"}
-      </button>
+      <Button label={isLoading ? "Loading..." : "Register"}></Button>
     </>
   );
 };

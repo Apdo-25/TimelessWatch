@@ -1,10 +1,10 @@
 "use client";
-
 import { useState } from "react";
 import Heading from "../components/Heading";
 import Input from "../components/inputs/Input";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import Link from "next/link";
+import Button from "../components/Button";
 
 const LoginForm = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -43,17 +43,11 @@ const LoginForm = () => {
       <hr className="bg-slate-300 w-full h-px" />
       <p className="text-center text-slate-500">
         Dont have an Account?{" "}
-        <Link href="/register" className="text-slate-600 hover:underline">
+        <Link href="/register" className="text-slate-600 underline">
           Register
         </Link>
       </p>
-      <button
-        type="submit"
-        className="bg-slate-500 text-white w-full py-2 rounded-md"
-        disabled={isLoading}
-      >
-        {isLoading ? "Loading..." : "Login"}
-      </button>
+      <Button label={isLoading ? "Loading..." : "Login"}></Button>
     </>
   );
 };
