@@ -1,6 +1,7 @@
 import Container from "../Container";
 import Link from "next/link";
 import { Chivo } from "next/font/google";
+import CartCount from "./CartCount";
 
 const chivo = Chivo({ subsets: ["latin"], weight: ["400"] });
 
@@ -53,7 +54,7 @@ const Navbar = () => {
                     md:gap-12
                     "
             >
-              <div>CartCount</div>
+              <CartCount />
               <div>UserMenu</div>
             </div>
           </div>
