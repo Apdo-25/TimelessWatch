@@ -9,7 +9,7 @@ import BackDrop from "./BackDrop";
 import { safeUser } from "@/types";
 
 interface UserMenuProps {
-  currentUser: safeUser;
+  currentUser: safeUser | null;
 }
 
 const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
@@ -62,6 +62,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
                 <Link href="/admin">
                   <MenuItem onClick={toggleOpen}>Admin Dashboard</MenuItem>
                 </Link>
+                <hr />
                 <MenuItem
                   onClick={() => {
                     toggleOpen();

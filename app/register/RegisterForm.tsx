@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Heading from "../components/Heading";
 import Input from "../components/inputs/Input";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
@@ -11,7 +11,11 @@ import axios from "axios";
 import { signIn } from "next-auth/react";
 import { AiOutlineLoading } from "react-icons/ai";
 
-const RegisterForm = () => {
+interface LoginFormProps {
+  currentUser: safeUser | null;
+}
+
+const RegisterForm: React.FC<LoginFormProps> = ({ currentUser }) => {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const {
@@ -25,6 +29,13 @@ const RegisterForm = () => {
       password: "",
     },
   });
+
+  useEffect(() => {
+    if (currentUser) {
+      router.push("/cart");
+      router.refresh();
+    }
+  }, [currentUser]);
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     setIsLoading(true);
@@ -58,6 +69,14 @@ const RegisterForm = () => {
       });
   };
 
+  if (currentUser) {
+    return (
+      <p className="text-center text-slate-500">
+        You are already logged in. Redirecting..{" "}
+      </p>
+    );
+  }
+
   return (
     <>
       <Heading title="Sign up for Timeless~Watch" />
@@ -65,6 +84,7 @@ const RegisterForm = () => {
       <Input
         id="name"
         label="Name"
+        type="text"
         disabled={isLoading}
         register={register}
         errors={errors}
@@ -73,6 +93,7 @@ const RegisterForm = () => {
       <Input
         id="email"
         label="Email"
+        type="email"
         disabled={isLoading}
         register={register}
         errors={errors}
