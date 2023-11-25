@@ -8,6 +8,7 @@ import Button from "../components/Button";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
+import { AiOutlineLoading } from "react-icons/ai";
 
 const LoginForm = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -76,10 +77,7 @@ const LoginForm = () => {
       <Button
         label={
           isLoading ? (
-            <div className="flex justify-center items-center">
-              <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-gray-900 mr-2"></div>
-              <span>Logging in</span>
-            </div>
+            <AiOutlineLoading className="animate-spin" size={24} />
           ) : (
             "Login"
           )

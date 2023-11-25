@@ -9,6 +9,7 @@ import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import { signIn } from "next-auth/react";
+import { AiOutlineLoading } from "react-icons/ai";
 
 const RegisterForm = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -96,10 +97,7 @@ const RegisterForm = () => {
       <Button
         label={
           isLoading ? (
-            <div className="flex justify-center items-center">
-              <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-gray-900 mr-2"></div>
-              <span>Creating account</span>
-            </div>
+            <AiOutlineLoading className="animate-spin" size={24} />
           ) : (
             "Register"
           )
