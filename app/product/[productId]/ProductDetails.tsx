@@ -17,11 +17,11 @@ export type CartProduct = {
   description: string;
   category: string;
   brand: string;
-  selectedImage: SelectedImageType;
+  selectedImage: SelectedImage;
   quantity: number;
 };
 
-export type SelectedImageType = {
+export type SelectedImage = {
   color: string;
   colorCode: string;
   image: string;
@@ -68,13 +68,15 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
         setIsProductInCart(true);
       }
     }
-  }, [cartProducts]);
+  }, [cartProducts, product.id]);
 
   const ProductRating =
-    product.reviews.reduce((acc, item) => item.rating + acc, 0) /
-    product.reviews.length;
+    product.reviews.reduce(
+      (acc: any, item: { rating: any }) => item.rating + acc,
+      0
+    ) / product.reviews.length;
 
-  const handleColorSelect = useCallback((value: SelectedImageType) => {
+  const handleColorSelect = useCallback((value: SelectedImage) => {
     setCartProduct((prev) => {
       return { ...prev, selectedImage: value };
     });

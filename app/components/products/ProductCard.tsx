@@ -4,19 +4,21 @@ import { Product, Review } from "@/utils/data";
 import { formatPrice } from "@/utils/formatPrice";
 import { Rating } from "@mui/material";
 import { useRouter } from "next/navigation";
-import Button from "../Button";
 
 interface ProductCardProps {
   data: Product & {
     reviews: Review[];
   };
+  onColorSelect: (productId: string, color: string) => void;
 }
 
-const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
+const ProductCard: React.FC<ProductCardProps> = ({ data, onColorSelect }) => {
   const router = useRouter();
   const ProductRating =
-    data.reviews.reduce((acc, item) => item.rating + acc, 0) /
-    data.reviews.length;
+    data.reviews.reduce(
+      (acc: any, item: { rating: any }) => item.rating + acc,
+      0
+    ) / data.reviews.length;
 
   return (
     <div
@@ -61,7 +63,6 @@ const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
         <div className="font-semibold text-teal-400">
           {formatPrice(data.price)}
         </div>
-        <Button label="Add to Cart" small />
       </div>
     </div>
   );

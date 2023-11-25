@@ -26,18 +26,17 @@ const LoginForm = () => {
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     setIsLoading(true);
-    console.log(data);
 
     signIn("credentials", {
-      email: data.email,
-      password: data.password,
+      ...data,
       redirect: false,
     }).then((callback) => {
       setIsLoading(false);
 
       if (callback?.ok) {
-        toast.success("Logged in");
         router.push("/cart");
+        router.refresh();
+        toast.success("Logged in");
       }
 
       if (callback?.error) {
