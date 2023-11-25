@@ -94,7 +94,16 @@ const RegisterForm = () => {
         </Link>
       </p>
       <Button
-        label={isLoading ? "Loading..." : "Register"}
+        label={
+          isLoading ? (
+            <div className="flex justify-center items-center">
+              <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-gray-900 mr-2"></div>
+              <span>Creating account</span>
+            </div>
+          ) : (
+            "Register"
+          )
+        }
         onClick={handleSubmit(onSubmit)}
       />
     </>
