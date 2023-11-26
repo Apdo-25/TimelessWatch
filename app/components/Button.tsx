@@ -2,7 +2,7 @@
 import { IconType } from "react-icons";
 
 interface ButttonProps {
-  label: string;
+  label: React.ReactNode;
   disabled?: boolean;
   outline?: boolean;
   small?: boolean;

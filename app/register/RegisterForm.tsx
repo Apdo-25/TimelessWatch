@@ -10,6 +10,7 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 import { signIn } from "next-auth/react";
 import { AiOutlineLoading } from "react-icons/ai";
+import { safeUser } from "@/types";
 
 interface LoginFormProps {
   currentUser: safeUser | null;
@@ -35,7 +36,7 @@ const RegisterForm: React.FC<LoginFormProps> = ({ currentUser }) => {
       router.push("/cart");
       router.refresh();
     }
-  }, [currentUser]);
+  }, [currentUser, router]);
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     setIsLoading(true);
