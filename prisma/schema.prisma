@@ -50,12 +50,12 @@ model Order {
   id              String        @id @default(auto()) @map("_id") @db.ObjectId
   userId          String        @db.ObjectId
   amount          Float
-  curreny         String
+  currency        String
   status          String
   deliverySatus   String?
   createdAt       DateTime      @default(now())
   updatedAt       DateTime      @updatedAt
-  paymentIntentId String        @unique
+  paymentIntentID String        @unique
   products        CartProduct[]
   address         Address?      @relation(fields: [addressId], references: [id])
   user            User          @relation(fields: [userId], references: [id])
