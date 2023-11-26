@@ -13,12 +13,12 @@ import { useRouter } from "next/navigation";
 export type CartProduct = {
   id: string;
   name: string;
-  price: number;
   description: string;
   category: string;
   brand: string;
   selectedImage: SelectedImage;
   quantity: number;
+  price: number;
 };
 
 export type SelectedImage = {

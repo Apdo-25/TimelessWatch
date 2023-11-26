@@ -17,9 +17,9 @@ model User {
   createdAt      DateTime  @default(now())
   updatedAt      DateTime  @updatedAt
   role           Role      @default(User)
-  accounts       Account[]
-  orders         Order[]
-  address        Address[]
+
+  accounts Account[]
+  orders   Order[]
 }
 
 model Account {
@@ -41,59 +41,48 @@ model Account {
   @@unique([provider, providerAccountId])
 }
 
-enum Role {
-  User
-  Admin
-}
-
 model Order {
   id              String        @id @default(auto()) @map("_id") @db.ObjectId
   userId          String        @db.ObjectId
   amount          Float
   currency        String
   status          String
-  deliverySatus   String?
-  createdAt       DateTime      @default(now())
-  updatedAt       DateTime      @updatedAt
-  paymentIntentID String        @unique
+  deliveryStatus  String?
+  createdDate     DateTime      @default(now())
+  paymentIntentID String?       @unique
   products        CartProduct[]
-  address         Address?      @relation(fields: [addressId], references: [id])
-  user            User          @relation(fields: [userId], references: [id])
+  address         Address?
 
-  addressId String? @db.ObjectId
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
-model CartProduct {
-  id          String  @id @default(auto()) @map("_id") @db.ObjectId
-  name        String
-  price       Float
-  description String
-  category    String
-  brand       String
-  image       Image   @relation(fields: [imageId], references: [id])
-  quantity    Int
-  Order       Order?  @relation(fields: [orderId], references: [id])
-  orderId     String? @db.ObjectId
-  imageId     String  @db.ObjectId
+type Image {
+  color     String
+  colorCode String
+  image     String
 }
 
-model Image {
-  id          String        @id @default(auto()) @map("_id") @db.ObjectId
-  color       String
-  colorCode   String
-  Image       String
-  CartProduct CartProduct[]
+type CartProduct {
+  id            String
+  name          String
+  description   String
+  category      String
+  brand         String
+  quantity      Int
+  price         Float
+  selectedImage Image
 }
 
-model Address {
-  id         String  @id @default(auto()) @map("_id") @db.ObjectId
-  city       String
-  country    String
-  line1      String
-  line2      String
-  postalCode String
-  state      String
-  Order      Order[]
-  User       User?   @relation(fields: [userId], references: [id])
-  userId     String? @db.ObjectId
+type Address {
+  city        String
+  country     String
+  line1       String
+  line2       String?
+  postal_code String
+  state       String
+}
+
+enum Role {
+  User
+  Admin
 }

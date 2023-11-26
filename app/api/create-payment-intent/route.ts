@@ -7,7 +7,6 @@ import { getCurrentUser } from "@/actions/getCurrentUser";
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
   apiVersion: "2023-10-16",
 });
-
 const calculateOrderAmount = (items: CartProduct[]) => {
   const totalPrice = items.reduce((acc, item) => {
     const itemTotal = item.price * item.quantity;
@@ -42,19 +41,16 @@ export async function POST(request: Request) {
     const current_intent = await stripe.paymentIntents.retrieve(
       payment_intent_id
     );
-
     if (current_intent) {
       const updated_intent = await stripe.paymentIntents.update(
         payment_intent_id,
-        {
-          amount: total,
-        }
+        { amount: total }
       );
-
       //Fetch order with product ids
       const [existing_order, updated_order] = await Promise.all([
         prisma.order.findFirst({
           where: { paymentIntentID: updated_intent.id },
+          // include: { products: true },
         }),
         prisma.order.update({
           where: { paymentIntentID: updated_intent.id },

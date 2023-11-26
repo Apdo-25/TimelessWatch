@@ -39,11 +39,10 @@ export const CartContextProvider = (props: Props) => {
     const cartItems: any = localStorage.getItem("timelessWatchItems");
     const cProducts: CartProduct[] | null = JSON.parse(cartItems);
     const watchPaymentIntent: any = localStorage.getItem("watchPaymentIntent");
-    const watchPaymentIntentParsed: string | null =
-      JSON.parse(watchPaymentIntent);
+    const paymentIntent: string | null = JSON.parse(watchPaymentIntent);
 
     setCartProducts(cProducts);
-    setPaymentIntent(watchPaymentIntentParsed);
+    setPaymentIntent(paymentIntent);
   }, []);
 
   useEffect(() => {
