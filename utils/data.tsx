@@ -2,7 +2,7 @@ export const products = [
   {
     id: "123",
     name: "Apple Watch",
-    price: 1000,
+    price: 352,
     description: "This is a Apple watch",
     category: "Watch",
     brand: "Apple",
