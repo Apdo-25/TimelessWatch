@@ -4,6 +4,7 @@ import { Poppins } from "next/font/google";
 import Navbar from "./components/navbar/NavBar";
 import Footer from "./components/footer/Footer";
 import CartProvider from "@/providers/CartProvider";
+import { ThemeProvider } from "@/providers/ThemeProvider";
 import { Toaster } from "react-hot-toast";
 
 const poppins = Poppins({
@@ -38,11 +39,13 @@ export default function RootLayout({
           }}
         />
         <CartProvider>
-          <div className="flex flex-col min-h-screen">
-            <Navbar />
-            <main className="flex-grow">{children}</main>
-            <Footer />
-          </div>
+          <ThemeProvider>
+            <div className="flex flex-col min-h-screen">
+              <Navbar />
+              <main className="flex-grow">{children}</main>
+              <Footer />
+            </div>
+          </ThemeProvider>
         </CartProvider>
       </body>
     </html>

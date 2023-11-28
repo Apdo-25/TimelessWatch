@@ -59,7 +59,7 @@ const CheckoutClient = () => {
   const options: StripeElementsOptions = {
     clientSecret,
     appearance: {
-      theme: "stripe",
+      theme: "night",
       labels: "floating",
     },
   };
@@ -74,12 +74,14 @@ const CheckoutClient = () => {
   return (
     <div className="w-full">
       {clientSecret && cartProducts && (
-        <Elements options={options} stripe={stripePromise}>
-          <CheckoutForm
-            clientSecret={clientSecret}
-            handleSetPaymentSuccess={handleSetPaymentSuccess}
-          />
-        </Elements>
+        <div>
+          <Elements options={options} stripe={stripePromise}>
+            <CheckoutForm
+              clientSecret={clientSecret}
+              handleSetPaymentSuccess={handleSetPaymentSuccess}
+            />
+          </Elements>
+        </div>
       )}
       {loading && <div className="text-center">Loading Checkout...</div>}
       {error && (
@@ -90,7 +92,7 @@ const CheckoutClient = () => {
       {paymentSuccess && (
         <div className="flex items-center flex-col gap-4">
           <div className="text-center text-teal-500 font-bold">
-            Payment Success
+            Payment Success, Thanks for your order.
           </div>
           <div className="max-w-[220px] w-full">
             <Button
