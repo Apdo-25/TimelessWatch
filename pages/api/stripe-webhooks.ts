@@ -1,6 +1,7 @@
 import { buffer } from "micro";
 import { NextApiRequest, NextApiResponse } from "next";
 import Stripe from "stripe";
+import prisma from "@/lib/prismadb";
 
 export const config = {
   api: {
@@ -34,19 +35,22 @@ export default async function handler(
   }
 
   switch (event.type) {
+    case "payment_intent.created":
+      const paymentIntent = event.data.object;
+      console.log("Payment intent was created");
+      break;
     case "charge.succeeded":
-      const charge = event.data.object as Stripe.Charge;
+      const charge: any = event.data.object as Stripe.Charge;
       if (typeof charge.payment_intent === "string") {
-        {
-          charge.payment_intent;
-        }
-        {
-          ("complete");
-          charge.shipping?.address;
-        }
+        await prisma.order.update({
+          where: { paymentIntentID: charge.payment_intent },
+          data: { status: "complete", address: charge.shipping?.address },
+        });
       }
       break;
     default:
-      console.log("Unhandled event type" + event.type);
+      console.log("Unhandled event type:" + event.type);
   }
+  // Return a response to acknowledge receipt of the event
+  res.json({ received: true });
 }
