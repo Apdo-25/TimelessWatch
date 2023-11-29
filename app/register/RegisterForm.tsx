@@ -24,11 +24,9 @@ const RegisterForm: React.FC<LoginFormProps> = ({ currentUser }) => {
     handleSubmit,
     formState: { errors },
   } = useForm<FieldValues>({
-    defaultValues: {
-      name: "",
-      email: "",
-      password: "",
-    },
+    defaultValues: { name: "", email: "", password: "" },
+    mode: "onBlur",
+    criteriaMode: "all",
   });
 
   useEffect(() => {
@@ -44,7 +42,7 @@ const RegisterForm: React.FC<LoginFormProps> = ({ currentUser }) => {
     axios
       .post("/api/register", data)
       .then(() => {
-        toast.success("Account created");
+        toast.success("Account created successfully");
 
         signIn("credentials", {
           email: data.email,
@@ -64,10 +62,13 @@ const RegisterForm: React.FC<LoginFormProps> = ({ currentUser }) => {
           }
         });
       })
-      .catch(() => toast.error("Something went wrong"))
-      .finally(() => {
-        setIsLoading(false);
-      });
+      .catch((error) => {
+        // Extract the error message from the API response
+        const errorMessage =
+          error.response?.data?.error || "Something went wrong";
+        toast.error(errorMessage);
+      })
+      .finally(() => setIsLoading(false));
   };
 
   if (currentUser) {
