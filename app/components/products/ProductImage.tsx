@@ -2,14 +2,15 @@
 
 import {
   CartProduct,
-  SelectedImageType,
+  SelectedImage,
 } from "@/app/product/[productId]/ProductDetails";
 import Image from "next/image";
+import { Product } from "@prisma/client";
 
 interface ProductImageProps {
   cartProduct: CartProduct;
-  product: any;
-  handleColorSelect: (value: SelectedImageType) => void;
+  product: Product;
+  handleColorSelect: (value: SelectedImage) => void;
 }
 
 const ProductIamge: React.FC<ProductImageProps> = ({
@@ -20,7 +21,7 @@ const ProductIamge: React.FC<ProductImageProps> = ({
   return (
     <div className="grid grid-cols-6 gap-2 h-full max-h-[500px] min-h-[300px] sm:min-h-[400px]">
       <div className="flex flex-col items-center justify-center gap-4 cursor-pointer border h-full max-h-[500px] min-h-[300px] sm:min-h-[400px]">
-        {product.images.map((image: SelectedImageType) => {
+        {product.images.map((image: SelectedImage) => {
           return (
             <div
               key={image.color}

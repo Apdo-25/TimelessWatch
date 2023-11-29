@@ -1,33 +1,10 @@
 "use client";
 import Image from "next/image";
-// import { Product, Review } from "@/utils/data";
+import { Product, Review } from "@prisma/client";
 import { formatPrice } from "@/utils/formatPrice";
 import { Rating } from "@mui/material";
 import { useRouter } from "next/navigation";
 
-export type Product = {
-  id: string;
-  name: string;
-  description: string;
-  category: string;
-  brand: string;
-  images: {
-    color: string;
-    colorCode: string;
-    image: string;
-  }[];
-  price: number;
-};
-
-export type Review = {
-  id: string;
-  rating: number;
-  comment: string;
-  user: {
-    id: string;
-    name: string;
-  };
-};
 interface ProductCardProps {
   data: Product & {
     reviews: Review[];

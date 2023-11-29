@@ -9,6 +9,7 @@ import ProductImage from "@/app/components/products/ProductImage";
 import { useCart } from "@/hooks/useCart";
 import { MdCheckCircle } from "react-icons/md";
 import { useRouter } from "next/navigation";
+import { Product, Review } from "@prisma/client";
 
 export type CartProduct = {
   id: string;
@@ -26,9 +27,10 @@ export type SelectedImage = {
   colorCode: string;
   image: string;
 };
-
 interface ProductDetailsProps {
-  product: any;
+  product: Product & {
+    reviews: Review[];
+  };
 }
 
 const Horizline = () => {

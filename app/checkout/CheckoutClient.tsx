@@ -72,12 +72,9 @@ const CheckoutClient = () => {
     },
   };
 
-  const handleSetPaymentSuccess = useCallback(
-    (value: boolean) => {
-      setPaymentSuccess(value);
-    },
-    [setPaymentSuccess]
-  );
+  const handleSetPaymentSuccess = useCallback((value: boolean) => {
+    setPaymentSuccess(value);
+  }, []);
 
   return (
     <div className="w-full">

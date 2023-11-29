@@ -1,8 +1,9 @@
 import Container from "@/app/components/Container";
 import ProductDetails from "./ProductDetails";
 import ListRating from "./ListRating";
-import { products } from "@/utils/data";
 import { Metadata } from "next";
+import getProductById from "@/actions/getProductsById";
+import NullData from "@/app/components/NullData";
 
 interface IPrams {
   productId?: string;
@@ -13,8 +14,13 @@ export const metadata: Metadata = {
   description: "Product",
 };
 
-const Product = ({ params }: { params: IPrams }) => {
-  const product = products.find((item) => item.id === params.productId);
+const Product = async ({ params }: { params: IPrams }) => {
+  const product = await getProductById(params);
+
+  if (!product) {
+    return <NullData title="Oops! Product with the given id does not exist." />;
+  }
+
   return (
     <div>
       <Container>
