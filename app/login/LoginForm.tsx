@@ -27,6 +27,8 @@ const LoginForm: React.FC<LoginFormProps> = ({ currentUser }) => {
       email: "",
       password: "",
     },
+    mode: "onBlur",
+    criteriaMode: "all",
   });
 
   useEffect(() => {
