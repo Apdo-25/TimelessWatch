@@ -25,6 +25,7 @@ const CheckoutClient = () => {
   console.log("clientSecret", clientSecret);
 
   useEffect(() => {
+    let isMounted = true;
     //Create a paymentIntent as soon as the page loads up
     if (cartProducts) {
       setLoading(true);
@@ -38,6 +39,9 @@ const CheckoutClient = () => {
         }),
       })
         .then((res) => {
+          if (!isMounted) {
+            return;
+          }
           setLoading(false);
           if (res.status === 401) {
             return router.push("/login");
@@ -49,11 +53,15 @@ const CheckoutClient = () => {
           handleSetPaymentIntent(data.paymentIntent.id);
         })
         .catch((error) => {
+          if (!isMounted) return;
           setError(true);
           console.log("Error", error);
           toast.error("Something went wrong");
         });
     }
+    return () => {
+      isMounted = false;
+    };
   }, [cartProducts, handleSetPaymentIntent, paymentIntent, router]);
 
   const options: StripeElementsOptions = {
@@ -97,7 +105,7 @@ const CheckoutClient = () => {
           <div className="max-w-[220px] w-full">
             <Button
               label="View Your Orders"
-              onClick={() => router.push("/order")}
+              onClick={() => router.push("/orders")}
             ></Button>
           </div>
         </div>

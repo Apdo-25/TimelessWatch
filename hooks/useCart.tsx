@@ -1,12 +1,11 @@
 import { CartProduct } from "@/app/product/[productId]/ProductDetails";
 import {
-  createContext,
-  useCallback,
-  useContext,
   useEffect,
   useState,
+  createContext,
+  useContext,
+  useCallback,
 } from "react";
-
 import { toast } from "react-hot-toast";
 
 type CartContextType = {
@@ -22,17 +21,16 @@ type CartContextType = {
   handleSetPaymentIntent: (value: string | null) => void;
 };
 
-export const CartContext = createContext<CartContextType | null>(null);
-
 export interface Props {
   [propName: string]: any;
 }
 
-export const CartContextProvider = (props: Props) => {
-  const [cartTotalQty, setCartTotalQty] = useState(0);
-  const [cartProducts, setCartProducts] = useState<CartProduct[] | null>(null);
-  const [cartTotalAmount, setCartTotalAmount] = useState(0);
+export const CartContext = createContext<CartContextType | null>(null);
 
+export const CartContextProvider = (props: Props) => {
+  const [cartProducts, setCartProducts] = useState<CartProduct[] | null>(null);
+  const [cartTotalQty, setCartTotalQty] = useState(0);
+  const [cartTotalAmount, setCartTotalAmount] = useState(0);
   const [paymentIntent, setPaymentIntent] = useState<string | null>(null);
 
   useEffect(() => {
