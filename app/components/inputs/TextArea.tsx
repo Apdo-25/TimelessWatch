@@ -1,8 +1,6 @@
 "use client";
 
 import { FieldErrors, FieldValues, UseFormRegister } from "react-hook-form";
-import CustomCheckBox from "./CustomCheckBox";
-import { register } from "module";
 
 interface TextAreaProps {
   id: string;
@@ -24,7 +22,6 @@ const TextArea: React.FC<TextAreaProps> = ({
   return (
     <div className="w-full relative">
       <textarea
-        autoComplete="off"
         id={id}
         disabled={disabled}
         {...register(id, { required })}
@@ -33,7 +30,7 @@ const TextArea: React.FC<TextAreaProps> = ({
           peer
           w-full
           p-4
-          pt-6 
+          pt-6
           max-h-[150px]
           min-h-[150px]
           outline-none
@@ -44,7 +41,6 @@ const TextArea: React.FC<TextAreaProps> = ({
           transition
           disabled:opacity-70
           disabled:cursor-not-allowed
-          pl-4
           ${errors[id] ? "border-rose-400" : "border-slate-300"}
           ${errors[id] ? "focus:border-rose-400" : "focus:border-slate-500"}
         `}

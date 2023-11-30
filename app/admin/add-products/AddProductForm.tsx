@@ -1,8 +1,10 @@
 "use client";
 import Heading from "@/app/components/Heading";
+import CategoryInput from "@/app/components/inputs/CategoryInput";
 import CustomCheckBox from "@/app/components/inputs/CustomCheckBox";
 import Input from "@/app/components/inputs/Input";
 import TextArea from "@/app/components/inputs/TextArea";
+import { categories } from "@/utils/Categories";
 import { useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 
@@ -29,6 +31,8 @@ const AddProductForm = () => {
     criteriaMode: "all",
   });
 
+  const category = watch("category");
+  const setCustomValue = (id: string, value: any) => {};
   return (
     <>
       <Heading title="Add a Product" center />
@@ -39,16 +43,16 @@ const AddProductForm = () => {
         register={register}
         errors={errors}
         required
-      />
+      ></Input>
       <Input
         id="price"
         label="Price"
         disabled={isLoading}
         register={register}
-        type="number"
         errors={errors}
+        type="number"
         required
-      />
+      ></Input>
       <Input
         id="brand"
         label="Brand"
@@ -56,7 +60,7 @@ const AddProductForm = () => {
         register={register}
         errors={errors}
         required
-      />
+      ></Input>
       <TextArea
         id="description"
         label="Description"
@@ -70,6 +74,27 @@ const AddProductForm = () => {
         register={register}
         label="This product is in stock"
       />
+      <div className="w-full font-medium">
+        <div className="mb-2 font-semibold">Select a Category</div>
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-3 max-h-[50vh] overflow-y-auto">
+          {categories.map((item) => {
+            if (item.label === "All") {
+              return null;
+            }
+
+            return (
+              <div key={item.label} className="col-span">
+                <CategoryInput
+                  onClick={(category) => setCustomValue("category", category)}
+                  selected={category === item.label}
+                  label={item.label}
+                  icon={item.icon}
+                />
+              </div>
+            );
+          })}
+        </div>
+      </div>
     </>
   );
 };

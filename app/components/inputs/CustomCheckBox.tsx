@@ -2,15 +2,14 @@
 
 import { FieldValues, UseFormRegister } from "react-hook-form";
 
-interface CustomCheckBoxProps {
+interface CheckboxProps {
   id: string;
   label: string;
   disabled?: boolean;
   register: UseFormRegister<FieldValues>;
-  required?: boolean;
 }
 
-const CustomCheckBox: React.FC<CustomCheckBoxProps> = ({
+const CustomCheckBox: React.FC<CheckboxProps> = ({
   id,
   label,
   disabled,
@@ -19,14 +18,14 @@ const CustomCheckBox: React.FC<CustomCheckBoxProps> = ({
   return (
     <div className="w-full flex flex-row gap-2 items-center">
       <input
-        type="checkbox"
         id={id}
         disabled={disabled}
         {...register(id)}
         placeholder=" "
+        type="checkbox"
         className="cursor-pointer"
       />
-      <label htmlFor={id} className="font-medium cursor-pointer">
+      <label htmlFor={id} className="font-medium  cursor-pointer">
         {label}
       </label>
     </div>
