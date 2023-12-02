@@ -59,6 +59,7 @@ const CheckoutClient = () => {
           toast.error("Something went wrong");
         });
     }
+    setLoading(false);
     return () => {
       isMounted = false;
     };

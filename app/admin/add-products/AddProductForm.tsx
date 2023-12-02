@@ -3,10 +3,24 @@ import Heading from "@/app/components/Heading";
 import CategoryInput from "@/app/components/inputs/CategoryInput";
 import CustomCheckBox from "@/app/components/inputs/CustomCheckBox";
 import Input from "@/app/components/inputs/Input";
+import SelectColor from "@/app/components/inputs/SelectColor";
 import TextArea from "@/app/components/inputs/TextArea";
 import { categories } from "@/utils/Categories";
+import { colors } from "@/utils/Colors";
 import { useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
+
+export type Image = {
+  color: string;
+  colorCode: string;
+  image: File | null;
+};
+
+export type UploadedImage = {
+  color: string;
+  colorCode: string;
+  image: string;
+};
 
 const AddProductForm = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -32,7 +46,13 @@ const AddProductForm = () => {
   });
 
   const category = watch("category");
-  const setCustomValue = (id: string, value: any) => {};
+  const setCustomValue = (id: string, value: any) => {
+    setValue(id, value, {
+      shouldValidate: true,
+      shouldDirty: true,
+      shouldTouch: true,
+    });
+  };
   return (
     <>
       <Heading title="Add a Product" center />
@@ -91,6 +111,32 @@ const AddProductForm = () => {
                   icon={item.icon}
                 />
               </div>
+            );
+          })}
+        </div>
+      </div>
+      <div className="w-full flex flex-col flex-wrap gap-4">
+        <div>
+          <div className="font-bold">
+            Select the available product colors and upload theirs images
+          </div>
+          <div className="text-sm">
+            You must upload an image for each of the color selected, otherwise
+            color selection will not be available
+          </div>
+        </div>
+        <div className="grid grid-cols-2 gap-3">
+          {colors.map((item, index) => {
+            return (
+              <>
+                <SelectColor
+                  key={index}
+                  item={item}
+                  addImageToState={() => {}}
+                  removeImageFromState={() => {}}
+                  isProductCreated={() => {}}
+                />
+              </>
             );
           })}
         </div>

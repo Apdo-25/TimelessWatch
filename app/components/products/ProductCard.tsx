@@ -9,9 +9,13 @@ interface ProductCardProps {
   data: Product & {
     reviews: Review[];
   };
+  shuffledProducts: Product[];
 }
 
-const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
+const ProductCard: React.FC<ProductCardProps> = ({
+  data,
+  shuffledProducts,
+}) => {
   const router = useRouter();
   const ProductRating =
     data.reviews.reduce(
