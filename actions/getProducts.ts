@@ -1,8 +1,43 @@
 import prisma from "@/lib/prismadb";
 
-export default async function getProducts() {
+export interface IProductParams {
+  category?: string | null;
+  searchTerm?: string | null;
+}
+
+export default async function getProducts(params: IProductParams) {
   try {
+    const { category, searchTerm } = params;
+    let searchString = searchTerm;
+
+    if (!searchTerm) {
+      searchString = "";
+    }
+
+    let query: any = {};
+
+    if (category) {
+      query.category = category;
+    }
+
     const products = await prisma.product.findMany({
+      where: {
+        ...query,
+        OR: [
+          {
+            name: {
+              contains: searchTerm,
+              mode: "insensitive",
+            },
+          },
+          {
+            description: {
+              contains: searchTerm,
+              mode: "insensitive",
+            },
+          },
+        ],
+      },
       include: {
         reviews: {
           include: {

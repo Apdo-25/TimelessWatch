@@ -1,11 +1,16 @@
 import Container from "./components/Container";
 import HeroBanner from "./components/HeroBanner";
 import ProductCard from "./components/products/ProductCard";
-import getProducts from "@/actions/getProducts";
+import getProducts, { IProductParams } from "@/actions/getProducts";
 import NullData from "./components/NullData";
 
-export default async function Home() {
-  const products = await getProducts();
+interface HomeProps {
+  searchParams: IProductParams;
+}
+
+export default async function Home({ searchParams }: HomeProps) {
+  const products = await getProducts(searchParams);
+  console.log("searchParams>>>>", searchParams);
   if (products.length === 0) {
     return <NullData title="Oops! No products found" />;
   }
