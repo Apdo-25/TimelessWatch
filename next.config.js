@@ -9,6 +9,7 @@ const nextConfig = {
             : "http://localhost:3000",
       },
     ],
+    domains: ["firebasestorage.googleapis.com"],
   },
 };
 

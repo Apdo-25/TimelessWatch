@@ -262,6 +262,7 @@ const AddProductForm = () => {
         </div>
         <div className="grid grid-cols-2 gap-3">
           {colors.map((item, index) => {
+            console.log(item);
             return (
               <SelectColor
                 key={index}

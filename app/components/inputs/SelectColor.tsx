@@ -30,7 +30,7 @@ const SelectColor: React.FC<SelectColorProps> = ({
 
   const handleFileChange = useCallback((value: File) => {
     setFile(value);
-    addImageToState({ ...item, image: value });
+    addImageToState({ ...item, image: value, colorCode: item.colorCode });
   }, []);
 
   const handleCheck = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
