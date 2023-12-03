@@ -8,7 +8,9 @@ const AddProducts = async () => {
   const currentUser = await getCurrentUser();
 
   if (!currentUser || currentUser.role !== "Admin") {
-    return <NullData title="Oops, Access denied!" />;
+    return (
+      <NullData title="Access denied!, You are not allowed to access this page" />
+    );
   }
 
   return (
