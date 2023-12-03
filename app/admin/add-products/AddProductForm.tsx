@@ -21,7 +21,7 @@ import { useCallback, useEffect, useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 
-export type Image = {
+export type ImageType = {
   color: string;
   colorCode: string;
   image: File | null;
@@ -35,7 +35,7 @@ export type UploadedImage = {
 
 const AddProductForm = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [images, setImages] = useState<Image[] | null>();
+  const [images, setImages] = useState<ImageType[] | null>();
   const [isProductCreated, setIsProductCreated] = useState(false);
   const router = useRouter();
   const {
@@ -164,7 +164,7 @@ const AddProductForm = () => {
     });
   };
 
-  const addImageToState = useCallback((value: Image) => {
+  const addImageToState = useCallback((value: ImageType) => {
     setImages((prev) => {
       if (!prev) {
         return [value];
@@ -173,7 +173,7 @@ const AddProductForm = () => {
       return [...prev, value];
     });
   }, []);
-  const removeImageFromState = useCallback((value: Image) => {
+  const removeImageFromState = useCallback((value: ImageType) => {
     setImages((prev) => {
       if (prev) {
         const filteredImages = prev.filter(
