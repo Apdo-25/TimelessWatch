@@ -1,9 +1,9 @@
 "use client";
 
-import { Image } from "@/app/admin/add-products/AddProductForm";
-import React, { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import SelectImage from "./SelectImage";
 import Button from "../Button";
+import { Image } from "@/app/admin/add-products/AddProductForm";
 
 interface SelectColorProps {
   item: Image;
@@ -43,16 +43,16 @@ const SelectColor: React.FC<SelectColorProps> = ({
   }, []);
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-1 overflow-y-auto border-b-[1.2px] border-slate 200 items-center p-2">
+    <div className="grid grid-cols-1 md:grid-cols-1 gap-3 overflow-y-auto border-b-[1.2px] border-slate-200 items-center p-2">
       <div className="flex flex-row gap-2 items-center h-[60px]">
         <input
-          className="cursor-pointer"
           id={item.color}
           type="checkbox"
           checked={isSelected}
           onChange={handleCheck}
+          className="cursor-pointer"
         />
-        <label htmlFor={item.color} className="font-medium">
+        <label htmlFor={item.color} className="font-medium cursor-pointer">
           {item.color}
         </label>
       </div>
@@ -64,16 +64,16 @@ const SelectColor: React.FC<SelectColorProps> = ({
         )}
         {file && (
           <div className="flex flex-row gap-2 text-sm col-span-2 items-center justify-between">
-            <p>{file.name}</p>
-            <div className="w-70px">
+            <p>{file?.name}</p>
+            <div className="w-[70px]">
               <Button
                 label="Cancel"
-                small
-                outline
                 onClick={() => {
                   setFile(null);
                   removeImageFromState(item);
                 }}
+                small
+                outline
               />
             </div>
           </div>

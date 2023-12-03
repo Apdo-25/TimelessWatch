@@ -1,14 +1,18 @@
 "use client";
+import Button from "@/app/components/Button";
 import Heading from "@/app/components/Heading";
 import CategoryInput from "@/app/components/inputs/CategoryInput";
 import CustomCheckBox from "@/app/components/inputs/CustomCheckBox";
 import Input from "@/app/components/inputs/Input";
 import SelectColor from "@/app/components/inputs/SelectColor";
 import TextArea from "@/app/components/inputs/TextArea";
+import firebaseApp from "@/lib/firebase";
 import { categories } from "@/utils/Categories";
 import { colors } from "@/utils/Colors";
-import { useState } from "react";
-import { FieldValues, useForm } from "react-hook-form";
+import { getStorage, ref, uploadBytesResumable } from "firebase/storage";
+import { useCallback, useEffect, useState } from "react";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 
 export type Image = {
   color: string;
@@ -24,6 +28,8 @@ export type UploadedImage = {
 
 const AddProductForm = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const [images, setImages] = useState<Image[] | null>();
+  const [isProductCreated, setIsProductCreated] = useState(false);
   const {
     register,
     handleSubmit,
@@ -45,6 +51,47 @@ const AddProductForm = () => {
     criteriaMode: "all",
   });
 
+  useEffect(() => {
+    setCustomValue("images", images);
+  }, [images]);
+
+  useEffect(() => {
+    if (isProductCreated) {
+      reset();
+      setImages(null);
+      setIsProductCreated(false);
+    }
+  }, [isProductCreated]);
+
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+    //upload image to firebase
+    //save to db
+    setIsLoading(true);
+    let uploadImages: UploadedImage[] = [];
+    if (!data.category) {
+      setIsLoading(false);
+      return toast.error("Category is not selected");
+    }
+
+    if (!data.images || data.images.length === 0) {
+      setIsLoading(false);
+      return toast.error("Images are not selected");
+    }
+
+    const handleImageUploads = async () => {
+      toast("Creating product, please wait...");
+      try {
+        for(const item of data.image){
+          if(item.image){
+            const fileName = new Date().getTime() + '-' + item.image.name;
+            const storage = getStorage(firebaseApp)
+            const storageRef = ref(storage, `products/${fileName}`);
+            const uploadTask = uploadBytesResumable(storageRef, item.image);
+          }
+        }
+    }
+  };
+
   const category = watch("category");
   const setCustomValue = (id: string, value: any) => {
     setValue(id, value, {
@@ -53,6 +100,31 @@ const AddProductForm = () => {
       shouldTouch: true,
     });
   };
+
+  const addImageToState = useCallback((value: Image) => {
+    setImages((prev) => {
+      if (!prev) {
+        return [value];
+      }
+
+      return [...prev, value];
+    });
+  }, []);
+  const removeImageFromState = useCallback((value: Image) => {
+    setImages((prev) => {
+      if (prev) {
+        const filteredImages = prev.filter(
+          (item) => item.color !== value.color
+        );
+        return filteredImages;
+      }
+
+      return prev;
+    });
+  }, []);
+
+  console.log("imagess", images);
+
   return (
     <>
       <Heading title="Add a Product" center />
@@ -117,30 +189,32 @@ const AddProductForm = () => {
       </div>
       <div className="w-full flex flex-col flex-wrap gap-4">
         <div>
-          <div className="font-bold">
+          <div className="font-semibold">
             Select the available product colors and upload theirs images
           </div>
-          <div className="text-sm">
+          <ul className="text-sm">
             You must upload an image for each of the color selected, otherwise
             color selection will not be available
-          </div>
+          </ul>
         </div>
         <div className="grid grid-cols-2 gap-3">
           {colors.map((item, index) => {
             return (
-              <>
-                <SelectColor
-                  key={index}
-                  item={item}
-                  addImageToState={() => {}}
-                  removeImageFromState={() => {}}
-                  isProductCreated={() => {}}
-                />
-              </>
+              <SelectColor
+                key={index}
+                item={item}
+                addImageToState={addImageToState}
+                removeImageFromState={removeImageFromState}
+                isProductCreated={isProductCreated}
+              />
             );
           })}
         </div>
       </div>
+      <Button
+        label={isLoading ? "Loading..." : "Add Product"}
+        onClick={handleSubmit(onSubmit)}
+      />
     </>
   );
 };
