@@ -1,11 +1,11 @@
 "use client";
 
-import { Image } from "@/app/admin/add-products/AddProductForm";
+import { ImageType } from "@/app/admin/add-products/AddProductForm";
 import { useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 
 interface SelectImageProps {
-  item?: Image;
+  item?: ImageType;
   handleFileChange: (value: File) => void;
 }
 

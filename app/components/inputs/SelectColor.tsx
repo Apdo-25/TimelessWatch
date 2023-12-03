@@ -3,12 +3,12 @@
 import { useCallback, useEffect, useState } from "react";
 import SelectImage from "./SelectImage";
 import Button from "../Button";
-import { Image } from "@/app/admin/add-products/AddProductForm";
+import { ImageType } from "@/app/admin/add-products/AddProductForm";
 
 interface SelectColorProps {
-  item: Image;
-  addImageToState: (value: Image) => void;
-  removeImageFromState: (value: Image) => void;
+  item: ImageType;
+  addImageToState: (value: ImageType) => void;
+  removeImageFromState: (value: ImageType) => void;
   isProductCreated: boolean;
 }
 
@@ -28,19 +28,25 @@ const SelectColor: React.FC<SelectColorProps> = ({
     }
   }, [isProductCreated]);
 
-  const handleFileChange = useCallback((value: File) => {
-    setFile(value);
-    addImageToState({ ...item, image: value });
-  }, []);
+  const handleFileChange = useCallback(
+    (value: File) => {
+      setFile(value);
+      addImageToState({ ...item, image: value });
+    },
+    [addImageToState, item]
+  );
 
-  const handleCheck = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    setIsSelected(e.target.checked);
+  const handleCheck = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setIsSelected(e.target.checked);
 
-    if (!e.target.checked) {
-      setFile(null);
-      removeImageFromState(item);
-    }
-  }, []);
+      if (!e.target.checked) {
+        setFile(null);
+        removeImageFromState(item);
+      }
+    },
+    [item, removeImageFromState]
+  );
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-1 gap-3 overflow-y-auto border-b-[1.2px] border-slate-200 items-center p-2">

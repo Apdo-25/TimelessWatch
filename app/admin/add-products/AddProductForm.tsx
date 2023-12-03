@@ -9,14 +9,14 @@ import TextArea from "@/app/components/inputs/TextArea";
 import firebaseApp from "@/lib/firebase";
 import { categories } from "@/utils/Categories";
 import { colors } from "@/utils/Colors";
-import { rejects } from "assert";
+import { useRouter } from "next/navigation";
+import axios from "axios";
 import {
   getDownloadURL,
   getStorage,
   ref,
   uploadBytesResumable,
 } from "firebase/storage";
-import { resolve } from "path";
 import { useCallback, useEffect, useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
@@ -37,6 +37,7 @@ const AddProductForm = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [images, setImages] = useState<Image[] | null>();
   const [isProductCreated, setIsProductCreated] = useState(false);
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -139,7 +140,19 @@ const AddProductForm = () => {
 
     await handleImageUploads();
     const productData = { ...data, images: uploadImages };
-    console.log("productData", productData);
+    axios
+      .post("/api/product", productData)
+      .then(() => {
+        toast.success("Product created successfully");
+        setIsProductCreated(true);
+        router.refresh();
+      })
+      .catch((error) => {
+        toast.error("Product save to db failed");
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
 
   const category = watch("category");
