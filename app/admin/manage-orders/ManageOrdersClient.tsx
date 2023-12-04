@@ -75,9 +75,9 @@ const ManageOrdersClient: React.FC<ManageOrdersClientProps> = ({ orders }) => {
                 bg="bg-slate-200"
                 color="text-slate-700"
               />
-            ) : params.row.paymentStatus === "paid" ? (
+            ) : params.row.paymentStatus === "complete" ? (
               <Status
-                text="paid"
+                text="completed"
                 icon={MdDone}
                 bg="bg-teal-200"
                 color="text-teal-700"
@@ -105,7 +105,7 @@ const ManageOrdersClient: React.FC<ManageOrdersClientProps> = ({ orders }) => {
               />
             ) : params.row.deliveryStatus === "Sendt" ? (
               <Status
-                text="dispatched"
+                text="Sendt"
                 icon={MdDeliveryDining}
                 bg="bg-purple-200"
                 color="text-purple-700"
@@ -164,10 +164,10 @@ const ManageOrdersClient: React.FC<ManageOrdersClientProps> = ({ orders }) => {
     axios
       .put("/api/order", {
         id,
-        deliveryStatus: "dispatched",
+        deliveryStatus: "Sendt",
       })
       .then((res) => {
-        toast.success("Order Dispatched");
+        toast.success("Order Sendt");
         router.refresh();
       })
       .catch((err) => {
