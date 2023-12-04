@@ -43,7 +43,7 @@ const ManageProductsClient: React.FC<ManageProductsClientProps> = ({
   }
 
   const columns: GridColDef[] = [
-    { field: "id", headerName: "ID", width: 70 },
+    { field: "id", headerName: "ID", width: 220 },
     { field: "name", headerName: "Name", width: 200 },
     {
       field: "price",
@@ -174,10 +174,10 @@ const ManageProductsClient: React.FC<ManageProductsClientProps> = ({
           columns={columns}
           initialState={{
             pagination: {
-              paginationModel: { page: 0, pageSize: 5 },
+              paginationModel: { page: 0, pageSize: 9 },
             },
           }}
-          pageSizeOptions={[5, 10]}
+          pageSizeOptions={[9, 20]}
           checkboxSelection
           disableRowSelectionOnClick
         />
