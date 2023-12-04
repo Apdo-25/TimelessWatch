@@ -35,11 +35,11 @@ export const CartContextProvider = (props: Props) => {
 
   useEffect(() => {
     const cartItems: any = localStorage.getItem("timelessWatchItems");
-    const cProducts: CartProduct[] | null = JSON.parse(cartItems);
+    const cartProducts: CartProduct[] | null = JSON.parse(cartItems);
     const watchPaymentIntent: any = localStorage.getItem("watchPaymentIntent");
     const paymentIntent: string | null = JSON.parse(watchPaymentIntent);
 
-    setCartProducts(cProducts);
+    setCartProducts(cartProducts);
     setPaymentIntent(paymentIntent);
   }, []);
 
@@ -164,12 +164,15 @@ export const CartContextProvider = (props: Props) => {
     setCartTotalQty(0);
     localStorage.setItem("timelessWatchItems", JSON.stringify(null));
     toast.success("Cart cleared");
-  }, []);
+  }, [cartProducts]);
 
-  const handleSetPaymentIntent = useCallback((value: string | null) => {
-    setPaymentIntent(value);
-    localStorage.setItem("watchPaymentIntent", JSON.stringify(value));
-  }, []);
+  const handleSetPaymentIntent = useCallback(
+    (value: string | null) => {
+      setPaymentIntent(value);
+      localStorage.setItem("watchPaymentIntent", JSON.stringify(value));
+    },
+    [paymentIntent]
+  );
 
   const value = {
     cartTotalQty,
@@ -183,16 +186,13 @@ export const CartContextProvider = (props: Props) => {
     paymentIntent,
     handleSetPaymentIntent,
   };
-
   return <CartContext.Provider value={value} {...props} />;
 };
 
 export const useCart = () => {
   const context = useContext(CartContext);
-
   if (context === null) {
     throw new Error("useCart must be used within a CartContextProvider");
   }
-
   return context;
 };

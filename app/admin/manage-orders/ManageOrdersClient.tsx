@@ -1,27 +1,23 @@
 "use client";
-import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import { Order, Product, User } from "@prisma/client";
-import { formatPrice } from "../../../utils/formatPrice";
+
+import ActionBtn from "@/app/components/ActionBtn";
 import Heading from "@/app/components/Heading";
 import Status from "@/app/components/Status";
+import { formatPrice } from "@/utils/formatPrice";
+import { DataGrid, GridColDef } from "@mui/x-data-grid";
+import { Order, User } from "@prisma/client";
+import axios from "axios";
+import moment from "moment";
+import { useRouter } from "next/navigation";
+import { useCallback, useEffect } from "react";
+import { toast } from "react-hot-toast";
 import {
-  MdAccessTime,
-  MdCached,
-  MdClose,
-  MdDelete,
+  MdAccessTimeFilled,
   MdDeliveryDining,
   MdDone,
-  MdRemove,
   MdRemoveRedEye,
 } from "react-icons/md";
-import ActionBtn from "@/app/components/ActionBtn";
-import { useCallback, useEffect } from "react";
-import toast from "react-hot-toast";
-import axios from "axios";
-import { useRouter } from "next/navigation";
-import { deleteObject, getStorage, ref } from "firebase/storage";
-import firebaseApp from "@/lib/firebase";
-import moment from "moment";
+
 interface ManageOrdersClientProps {
   orders: ExtendedOrder[];
 }
@@ -38,15 +34,16 @@ const ManageOrdersClient: React.FC<ManageOrdersClientProps> = ({ orders }) => {
   }, []);
 
   let rows: any = [];
+
   if (orders) {
-    rows = orders.map((orders) => {
+    rows = orders.map((order) => {
       return {
-        id: orders.id,
-        customer: orders.user.name,
-        amount: formatPrice(orders.amount / 100),
-        paymentSatus: orders.status,
-        date: moment(orders.createdDate).fromNow(),
-        deliveryStatus: orders.deliveryStatus,
+        id: order.id,
+        customer: order.user.name,
+        amount: formatPrice(order.amount / 100),
+        paymentStatus: order.status,
+        date: moment(order.createdDate).fromNow(),
+        deliveryStatus: order.deliveryStatus,
       };
     });
   }
@@ -60,37 +57,30 @@ const ManageOrdersClient: React.FC<ManageOrdersClientProps> = ({ orders }) => {
       width: 130,
       renderCell: (params) => {
         return (
-          <div className="font-bold text-slate-800 ">{params.row.amount}</div>
+          <div className="font-bold text-slate-800">{params.row.amount}</div>
         );
       },
     },
     {
-      field: "paymentSatus",
+      field: "paymentStatus",
       headerName: "Payment Status",
-      width: 100,
+      width: 130,
       renderCell: (params) => {
         return (
           <div>
-            {params.row.paymentSatus === "pending" ? (
+            {params.row.paymentStatus === "pending" ? (
               <Status
                 text="pending"
-                icon={MdAccessTime}
+                icon={MdAccessTimeFilled}
                 bg="bg-slate-200"
                 color="text-slate-700"
               />
-            ) : params.row.paymentSatus === "paid" ? (
+            ) : params.row.paymentStatus === "paid" ? (
               <Status
                 text="paid"
                 icon={MdDone}
-                bg="bg-green-200"
-                color="text-green-700"
-              />
-            ) : params.row.paymentSatus === "failed" ? (
-              <Status
-                text="failed"
-                icon={MdClose}
-                bg="bg-red-200"
-                color="text-red-700"
+                bg="bg-teal-200"
+                color="text-teal-700"
               />
             ) : (
               <></>
@@ -101,7 +91,7 @@ const ManageOrdersClient: React.FC<ManageOrdersClientProps> = ({ orders }) => {
     },
     {
       field: "deliveryStatus",
-      headerName: "Delivery Staus",
+      headerName: "Delivery Status",
       width: 130,
       renderCell: (params) => {
         return (
@@ -109,13 +99,13 @@ const ManageOrdersClient: React.FC<ManageOrdersClientProps> = ({ orders }) => {
             {params.row.deliveryStatus === "pending" ? (
               <Status
                 text="pending"
-                icon={MdAccessTime}
+                icon={MdAccessTimeFilled}
                 bg="bg-slate-200"
                 color="text-slate-700"
               />
             ) : params.row.deliveryStatus === "Sendt" ? (
               <Status
-                text="sendt"
+                text="dispatched"
                 icon={MdDeliveryDining}
                 bg="bg-purple-200"
                 color="text-purple-700"
@@ -134,7 +124,11 @@ const ManageOrdersClient: React.FC<ManageOrdersClientProps> = ({ orders }) => {
         );
       },
     },
-    { field: "date", headerName: "Date", width: 100 },
+    {
+      field: "date",
+      headerName: "Date",
+      width: 130,
+    },
     {
       field: "action",
       headerName: "Actions",
@@ -144,21 +138,21 @@ const ManageOrdersClient: React.FC<ManageOrdersClientProps> = ({ orders }) => {
           <div className="flex justify-between gap-4 w-full">
             <ActionBtn
               icon={MdDeliveryDining}
+              disabled={params.row.paymentStatus === "pending"}
               onClick={() => {
                 handleDispatch(params.row.id);
               }}
             />
             <ActionBtn
               icon={MdDone}
+              disabled={params.row.paymentStatus === "pending"}
               onClick={() => {
-                handleDelivery(params.row.id);
+                handleDeliver(params.row.id);
               }}
             />
             <ActionBtn
               icon={MdRemoveRedEye}
-              onClick={() => {
-                router.push(`/order/${params.row.id}`);
-              }}
+              onClick={() => router.push(`/order/${params.row.id}`)}
             />
           </div>
         );
@@ -170,30 +164,30 @@ const ManageOrdersClient: React.FC<ManageOrdersClientProps> = ({ orders }) => {
     axios
       .put("/api/order", {
         id,
-        deliveryStatus: "Sendt",
+        deliveryStatus: "dispatched",
       })
-      .then(() => {
+      .then((res) => {
         toast.success("Order Dispatched");
         router.refresh();
       })
       .catch((err) => {
-        toast.error("Something went wrong");
+        toast.error("Oops! Something went wrong");
         console.log(err);
       });
   }, []);
 
-  const handleDelivery = useCallback((id: string) => {
+  const handleDeliver = useCallback((id: string) => {
     axios
       .put("/api/order", {
         id,
         deliveryStatus: "delivered",
       })
-      .then(() => {
+      .then((res) => {
         toast.success("Order Delivered");
         router.refresh();
       })
       .catch((err) => {
-        toast.error("Something went wrong");
+        toast.error("Oops! Something went wrong");
         console.log(err);
       });
   }, []);

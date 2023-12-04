@@ -14,10 +14,10 @@ const stripePromise = loadStripe(
 
 const CheckoutClient = () => {
   const { cartProducts, paymentIntent, handleSetPaymentIntent } = useCart();
-  const [clientSecret, setClientSecret] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [paymentSuccess, setPaymentSuccess] = useState(false);
+  const [clientSecret, setClientSecret] = useState("");
 
   const router = useRouter();
 
@@ -25,7 +25,6 @@ const CheckoutClient = () => {
   console.log("clientSecret", clientSecret);
 
   useEffect(() => {
-    let isMounted = true;
     //Create a paymentIntent as soon as the page loads up
     if (cartProducts) {
       setLoading(true);
@@ -39,9 +38,6 @@ const CheckoutClient = () => {
         }),
       })
         .then((res) => {
-          if (!isMounted) {
-            return;
-          }
           setLoading(false);
           if (res.status === 401) {
             return router.push("/login");
@@ -53,22 +49,17 @@ const CheckoutClient = () => {
           handleSetPaymentIntent(data.paymentIntent.id);
         })
         .catch((error) => {
-          if (!isMounted) return;
           setError(true);
           console.log("Error", error);
           toast.error("Something went wrong");
         });
     }
-    setLoading(false);
-    return () => {
-      isMounted = false;
-    };
-  }, [cartProducts, handleSetPaymentIntent, paymentIntent, router]);
+  }, [cartProducts, paymentIntent]);
 
   const options: StripeElementsOptions = {
     clientSecret,
     appearance: {
-      theme: "night",
+      theme: "stripe",
       labels: "floating",
     },
   };

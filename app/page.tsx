@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import Container from "./components/Container";
 import HeroBanner from "./components/HeroBanner";
 import ProductCard from "./components/products/ProductCard";

@@ -3,11 +3,15 @@ import prisma from "@/lib/prismadb";
 interface IParams {
   orderId?: string;
 }
+
 export default async function getOrderById(params: IParams) {
   try {
     const { orderId } = params;
+
     const order = await prisma.order.findUnique({
-      where: { id: orderId },
+      where: {
+        id: orderId,
+      },
     });
 
     if (!order) {
@@ -15,8 +19,7 @@ export default async function getOrderById(params: IParams) {
     }
 
     return order;
-  } catch (error) {
-    console.log(error);
-    return null;
+  } catch (error: any) {
+    throw new Error(error);
   }
 }
