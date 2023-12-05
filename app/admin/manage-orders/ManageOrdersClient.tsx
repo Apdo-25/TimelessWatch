@@ -101,14 +101,14 @@ const ManageOrdersClient: React.FC<ManageOrdersClientProps> = ({ orders }) => {
                 bg="bg-slate-200"
                 color="text-slate-700"
               />
-            ) : params.row.paymentStatus === "sendt" ? (
+            ) : params.row.deliveryStatus === "sendt" ? (
               <Status
                 text="sendt"
                 icon={MdDeliveryDining}
                 bg="bg-purple-200"
                 color="text-purple-700"
               />
-            ) : params.row.paymentStatus === "delivered" ? (
+            ) : params.row.deliveryStatus === "delivered" ? (
               <Status
                 text="delivered"
                 icon={MdDone}
@@ -136,14 +136,12 @@ const ManageOrdersClient: React.FC<ManageOrdersClientProps> = ({ orders }) => {
           <div className="flex justify-between gap-4 w-full">
             <ActionBtn
               icon={MdDeliveryDining}
-              disabled={params.row.paymentStatus === "pending"}
               onClick={() => {
                 handleDispatch(params.row.id);
               }}
             />
             <ActionBtn
               icon={MdDone}
-              disabled={params.row.paymentStatus === "pending"}
               onClick={() => {
                 handleDeliver(params.row.id);
               }}
@@ -159,7 +157,6 @@ const ManageOrdersClient: React.FC<ManageOrdersClientProps> = ({ orders }) => {
   ];
 
   const handleDispatch = useCallback((id: string) => {
-    console.log("error", handleDispatch);
     axios
       .put("/api/order", {
         id,
@@ -176,7 +173,6 @@ const ManageOrdersClient: React.FC<ManageOrdersClientProps> = ({ orders }) => {
   }, []);
 
   const handleDeliver = useCallback((id: string) => {
-    console.log("asdsad", handleDeliver);
     axios
       .put("/api/order", {
         id,
