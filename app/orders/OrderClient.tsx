@@ -1,28 +1,23 @@
 "use client";
-import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import { Order, Product, User } from "@prisma/client";
-import { formatPrice } from "../../../utils/formatPrice";
+
+import ActionBtn from "@/app/components/ActionBtn";
 import Heading from "@/app/components/Heading";
 import Status from "@/app/components/Status";
+import { formatPrice } from "@/utils/formatPrice";
+import { DataGrid, GridColDef } from "@mui/x-data-grid";
+import { Order, User } from "@prisma/client";
+import moment from "moment";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import {
   MdAccessTimeFilled,
-  MdCached,
-  MdClose,
-  MdDelete,
   MdDeliveryDining,
   MdDone,
-  MdRemove,
   MdRemoveRedEye,
 } from "react-icons/md";
-import ActionBtn from "@/app/components/ActionBtn";
-import { useCallback, useEffect } from "react";
-import toast from "react-hot-toast";
-import axios from "axios";
-import { useRouter } from "next/navigation";
-import { deleteObject, getStorage, ref } from "firebase/storage";
-import firebaseApp from "@/lib/firebase";
-import moment from "moment";
-interface ManageOrdersClientProps {
+import NullData from "../components/NullData";
+
+interface OrdersClientProps {
   orders: ExtendedOrder[];
 }
 
@@ -30,19 +25,19 @@ type ExtendedOrder = Order & {
   user: User;
 };
 
-const ManageOrdersClient: React.FC<ManageOrdersClientProps> = ({ orders }) => {
+const OrdersClient: React.FC<OrdersClientProps> = ({ orders }) => {
   const router = useRouter();
 
   useEffect(() => {
     router.refresh();
-  }, []);
+  }, [router]);
 
   let rows: any = [];
+
   if (orders) {
     rows = orders.map((order) => {
       return {
         id: order.id,
-        customer: order.user.name,
         amount: formatPrice(order.amount / 100),
         paymentStatus: order.status,
         date: moment(order.createdDate).fromNow(),
@@ -52,15 +47,14 @@ const ManageOrdersClient: React.FC<ManageOrdersClientProps> = ({ orders }) => {
   }
 
   const columns: GridColDef[] = [
-    { field: "id", headerName: "ID", width: 220 },
-    { field: "customer", headerName: "Customer Name", width: 130 },
+    { field: "id", headerName: "Order ID", width: 220 },
     {
       field: "amount",
       headerName: "Amount(DKK)",
       width: 130,
       renderCell: (params) => {
         return (
-          <div className="font-bold text-slate-800 ">{params.row.amount}</div>
+          <div className="font-bold text-slate-800">{params.row.amount}</div>
         );
       },
     },
@@ -106,14 +100,14 @@ const ManageOrdersClient: React.FC<ManageOrdersClientProps> = ({ orders }) => {
                 bg="bg-slate-200"
                 color="text-slate-700"
               />
-            ) : params.row.paymentStatus === "sendt" ? (
+            ) : params.row.deliveryStatus === "sendt" ? (
               <Status
                 text="sendt"
                 icon={MdDeliveryDining}
                 bg="bg-purple-200"
                 color="text-purple-700"
               />
-            ) : params.row.paymentStatus === "delivered" ? (
+            ) : params.row.deliveryStatus === "delivered" ? (
               <Status
                 text="delivered"
                 icon={MdDone}
@@ -135,27 +129,15 @@ const ManageOrdersClient: React.FC<ManageOrdersClientProps> = ({ orders }) => {
     {
       field: "action",
       headerName: "Actions",
-      width: 200,
+      width: 70,
       renderCell: (params) => {
         return (
           <div className="flex justify-between gap-4 w-full">
             <ActionBtn
-              icon={MdDeliveryDining}
-              disabled={params.row.paymentStatus === "pending"}
-              onClick={() => {
-                handleDispatch(params.row.id);
-              }}
-            />
-            <ActionBtn
-              icon={MdDone}
-              disabled={params.row.paymentStatus === "pending"}
-              onClick={() => {
-                handleDeliver(params.row.id);
-              }}
-            />
-            <ActionBtn
               icon={MdRemoveRedEye}
-              onClick={() => router.push(`/order/${params.row.id}`)}
+              onClick={() => {
+                router.push(`/order/${params.row.id}`);
+              }}
             />
           </div>
         );
@@ -163,42 +145,12 @@ const ManageOrdersClient: React.FC<ManageOrdersClientProps> = ({ orders }) => {
     },
   ];
 
-  const handleDispatch = useCallback((id: string) => {
-    axios
-      .put("/api/order", {
-        id,
-        deliveryStatus: "sendt",
-      })
-      .then((res) => {
-        toast.success("Order Sendt");
-        router.refresh();
-      })
-      .catch((err) => {
-        toast.error("Something went wrong");
-        console.log(err);
-      });
-  }, []);
-
-  const handleDeliver = useCallback((id: string) => {
-    axios
-      .put("/api/order", {
-        id,
-        deliveryStatus: "delivered",
-      })
-      .then((res) => {
-        toast.success("Order Delivered");
-        router.refresh();
-      })
-      .catch((err) => {
-        toast.error("Something went wrong");
-        console.log(err);
-      });
-  }, []);
+  if (!orders) return <NullData title="No orders" />;
 
   return (
-    <div className="max-w-[1150px] m-auto text-xl">
+    <div className="max-w-[900px] m-auto text-xl">
       <div className="mb-4 mt-8">
-        <Heading title="Manage Products" center />
+        <Heading title="Your Orders" center />
       </div>
       <div style={{ height: 600, width: "100%" }}>
         <DataGrid
@@ -218,4 +170,4 @@ const ManageOrdersClient: React.FC<ManageOrdersClientProps> = ({ orders }) => {
   );
 };
 
-export default ManageOrdersClient;
+export default OrdersClient;

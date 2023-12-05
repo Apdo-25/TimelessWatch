@@ -61,6 +61,7 @@ const AddProductForm = () => {
 
   useEffect(() => {
     setCustomValue("images", images);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [images]);
 
   useEffect(() => {
@@ -69,7 +70,7 @@ const AddProductForm = () => {
       setImages(null);
       setIsProductCreated(false);
     }
-  }, [isProductCreated]);
+  }, [isProductCreated, reset]);
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     //upload image to firebase
@@ -255,10 +256,10 @@ const AddProductForm = () => {
           <div className="font-semibold">
             Select the available product colors and upload theirs images
           </div>
-          <ul className="text-sm">
+          <p className="text-sm">
             You must upload an image for each of the color selected, otherwise
             color selection will not be available
-          </ul>
+          </p>
         </div>
         <div className="grid grid-cols-2 gap-3">
           {colors.map((item, index) => {

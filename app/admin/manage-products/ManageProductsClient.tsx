@@ -4,7 +4,14 @@ import { Product } from "@prisma/client";
 import { formatPrice } from "../../../utils/formatPrice";
 import Heading from "@/app/components/Heading";
 import Status from "@/app/components/Status";
-import { MdCached, MdClose, MdDelete, MdDone, MdRemove } from "react-icons/md";
+import {
+  MdCached,
+  MdClose,
+  MdDelete,
+  MdDone,
+  MdRemove,
+  MdRemoveRedEye,
+} from "react-icons/md";
 import ActionBtn from "@/app/components/ActionBtn";
 import { useCallback, useEffect } from "react";
 import toast from "react-hot-toast";
@@ -103,7 +110,7 @@ const ManageProductsClient: React.FC<ManageProductsClientProps> = ({
               }}
             />
             <ActionBtn
-              icon={MdRemove}
+              icon={MdRemoveRedEye}
               onClick={() => {
                 router.push(`/product/${params.row.id}`);
               }}

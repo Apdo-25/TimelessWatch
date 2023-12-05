@@ -164,15 +164,12 @@ export const CartContextProvider = (props: Props) => {
     setCartTotalQty(0);
     localStorage.setItem("timelessWatchItems", JSON.stringify(null));
     toast.success("Cart cleared");
-  }, [cartProducts]);
+  }, []);
 
-  const handleSetPaymentIntent = useCallback(
-    (value: string | null) => {
-      setPaymentIntent(value);
-      localStorage.setItem("watchPaymentIntent", JSON.stringify(value));
-    },
-    [paymentIntent]
-  );
+  const handleSetPaymentIntent = useCallback((value: string | null) => {
+    setPaymentIntent(value);
+    localStorage.setItem("watchPaymentIntent", JSON.stringify(value));
+  }, []);
 
   const value = {
     cartTotalQty,

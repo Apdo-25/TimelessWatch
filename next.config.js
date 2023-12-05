@@ -3,13 +3,10 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
-        hostname:
-          process.env.NODE_ENV === "production"
-            ? "https://cdn.jsdelivr.net"
-            : "http://localhost:3000",
+        protocol: "https",
+        hostname: "firebasestorage.googleapis.com",
       },
     ],
-    domains: ["firebasestorage.googleapis.com"],
   },
 };
 

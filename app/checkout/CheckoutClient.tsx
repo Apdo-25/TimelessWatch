@@ -54,7 +54,7 @@ const CheckoutClient = () => {
           toast.error("Something went wrong");
         });
     }
-  }, [cartProducts, paymentIntent]);
+  }, [cartProducts, handleSetPaymentIntent, paymentIntent, router]);
 
   const options: StripeElementsOptions = {
     clientSecret,
