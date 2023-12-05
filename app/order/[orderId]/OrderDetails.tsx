@@ -45,20 +45,15 @@ const OrderDetails: React.FC<OrderDetailsProps> = ({ order }) => {
               bg="bg-slate-200"
               color="text-slate-700"
             />
-          ) : order.status === "paid" ? (
+          ) : order.status === "complete" ? (
             <Status
-              text="paid"
+              text="completed"
               icon={MdDone}
               bg="bg-green-200"
               color="text-green-700"
             />
           ) : (
-            <Status
-              text="failed"
-              icon={MdClose}
-              bg="bg-red-200"
-              color="text-red-700"
-            />
+            <></>
           )}
         </div>
       </div>
@@ -72,7 +67,7 @@ const OrderDetails: React.FC<OrderDetailsProps> = ({ order }) => {
               bg="bg-slate-200"
               color="text-slate-700"
             />
-          ) : order.deliveryStatus === "Sendt" ? (
+          ) : order.deliveryStatus === "sendt" ? (
             <Status
               text="sendt"
               icon={MdDeliveryDining}
@@ -102,7 +97,7 @@ const OrderDetails: React.FC<OrderDetailsProps> = ({ order }) => {
         </div>
         {order.products &&
           order.products.map((item) => {
-            return <OrderItem key={item.id} item={item}></OrderItem>;
+            return <OrderItem key={item.id} item={item} />;
           })}
       </div>
     </div>

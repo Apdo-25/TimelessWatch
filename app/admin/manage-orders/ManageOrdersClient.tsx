@@ -1,17 +1,13 @@
 "use client";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import { Order, Product, User } from "@prisma/client";
+import { Order, User } from "@prisma/client";
 import { formatPrice } from "../../../utils/formatPrice";
 import Heading from "@/app/components/Heading";
 import Status from "@/app/components/Status";
 import {
   MdAccessTimeFilled,
-  MdCached,
-  MdClose,
-  MdDelete,
   MdDeliveryDining,
   MdDone,
-  MdRemove,
   MdRemoveRedEye,
 } from "react-icons/md";
 import ActionBtn from "@/app/components/ActionBtn";
@@ -19,8 +15,6 @@ import { useCallback, useEffect } from "react";
 import toast from "react-hot-toast";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { deleteObject, getStorage, ref } from "firebase/storage";
-import firebaseApp from "@/lib/firebase";
 import moment from "moment";
 interface ManageOrdersClientProps {
   orders: ExtendedOrder[];
@@ -38,6 +32,7 @@ const ManageOrdersClient: React.FC<ManageOrdersClientProps> = ({ orders }) => {
   }, []);
 
   let rows: any = [];
+
   if (orders) {
     rows = orders.map((order) => {
       return {
@@ -164,6 +159,7 @@ const ManageOrdersClient: React.FC<ManageOrdersClientProps> = ({ orders }) => {
   ];
 
   const handleDispatch = useCallback((id: string) => {
+    console.log("error", handleDispatch);
     axios
       .put("/api/order", {
         id,
@@ -180,6 +176,7 @@ const ManageOrdersClient: React.FC<ManageOrdersClientProps> = ({ orders }) => {
   }, []);
 
   const handleDeliver = useCallback((id: string) => {
+    console.log("asdsad", handleDeliver);
     axios
       .put("/api/order", {
         id,
@@ -198,7 +195,7 @@ const ManageOrdersClient: React.FC<ManageOrdersClientProps> = ({ orders }) => {
   return (
     <div className="max-w-[1150px] m-auto text-xl">
       <div className="mb-4 mt-8">
-        <Heading title="Manage Products" center />
+        <Heading title="Manage Orders" center />
       </div>
       <div style={{ height: 600, width: "100%" }}>
         <DataGrid
