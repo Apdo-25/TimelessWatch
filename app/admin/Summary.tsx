@@ -43,7 +43,7 @@ const Summary: React.FC<SummaryProps> = ({ orders, products, users }) => {
     },
     users: {
       label: "Total Users",
-      digit: 1533,
+      digit: 0,
     },
   });
 

@@ -2,10 +2,10 @@ import prisma from "@/lib/prismadb";
 
 export default async function getUsers() {
   try {
-    const users = prisma?.user.findMany();
+    const users = await prisma.user.findMany({});
+
     return users;
-  } catch (error) {
-    console.log(error);
-    return null;
+  } catch (error: any) {
+    throw new Error(error);
   }
 }
