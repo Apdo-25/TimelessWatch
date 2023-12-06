@@ -18,13 +18,16 @@ export default async function Home({ searchParams }: HomeProps) {
   }
 
   // Fisher-Yates shuffle algorithm
-  function shuffleArray(array: any) {
-    for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [array[i], array[j]] = [array[j], array[i]];
+  const shuffleArray = (array: any[]) => {
+    const _array = [...array];
+    for (let i = _array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * i);
+      const temp = _array[i];
+      _array[i] = _array[j];
+      _array[j] = temp;
     }
-    return array;
-  }
+    return _array;
+  };
 
   const shuffledProducts = shuffleArray(products);
 
