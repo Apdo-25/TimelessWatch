@@ -5,6 +5,7 @@ import CartCount from "./CartCount";
 import UserMenu from "./UserMenu";
 import { getCurrentUser } from "@/actions/getCurrentUser";
 import { ThemeSwitcher } from "../ThemeSwitcher";
+import SearchBar from "./SearchBar";
 
 const chivo = Chivo({ subsets: ["latin"], weight: ["400"] });
 
@@ -49,7 +50,7 @@ const Navbar = async () => {
                     md:block
                     "
             >
-              Search
+              <SearchBar />
             </div>
             <div
               className="
