@@ -30,7 +30,7 @@ const OrdersClient: React.FC<OrdersClientProps> = ({ orders }) => {
 
   useEffect(() => {
     router.refresh();
-  }, [router]);
+  }, []);
 
   let rows: any = [];
 

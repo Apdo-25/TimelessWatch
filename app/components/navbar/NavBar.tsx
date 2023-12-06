@@ -4,14 +4,16 @@ import { Chivo } from "next/font/google";
 import CartCount from "./CartCount";
 import UserMenu from "./UserMenu";
 import getCurrentUser from "@/actions/getCurrentUser";
-
 import SearchBar from "./SearchBar";
+import { safeUser } from "@/types";
 
 const chivo = Chivo({ subsets: ["latin"], weight: ["400"] });
 
-const Navbar = async () => {
-  const currentUser = await getCurrentUser();
+interface NavBarProps {
+  currentUser: safeUser | null;
+}
 
+const Navbar: React.FC<NavBarProps> = async ({ currentUser }) => {
   return (
     <div
       className="

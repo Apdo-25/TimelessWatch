@@ -21,9 +21,6 @@ const CheckoutClient = () => {
 
   const router = useRouter();
 
-  console.log("paymentIntent", paymentIntent);
-  console.log("clientSecret", clientSecret);
-
   useEffect(() => {
     //Create a paymentIntent as soon as the page loads up
     if (cartProducts) {
@@ -54,7 +51,7 @@ const CheckoutClient = () => {
           toast.error("Something went wrong");
         });
     }
-  }, [cartProducts, handleSetPaymentIntent, paymentIntent, router]);
+  }, [cartProducts, paymentIntent]);
 
   const options: StripeElementsOptions = {
     clientSecret,

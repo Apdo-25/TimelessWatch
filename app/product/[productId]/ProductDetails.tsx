@@ -10,6 +10,7 @@ import { useCart } from "@/hooks/useCart";
 import { MdCheckCircle } from "react-icons/md";
 import { useRouter } from "next/navigation";
 import { Product, Review } from "@prisma/client";
+import toast from "react-hot-toast";
 
 export type CartProduct = {
   id: string;
@@ -70,7 +71,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
         setIsProductInCart(true);
       }
     }
-  }, [cartProducts, product.id]);
+  }, [cartProducts]);
 
   const ProductRating =
     product.reviews.reduce(
@@ -78,16 +79,19 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
       0
     ) / product.reviews.length;
 
-  const handleColorSelect = useCallback((value: SelectedImage) => {
-    setCartProduct((prev) => {
-      return { ...prev, selectedImage: value };
-    });
-  }, []);
+  const handleColorSelect = useCallback(
+    (value: SelectedImage) => {
+      setCartProduct((prev) => {
+        return { ...prev, selectedImage: value };
+      });
+    },
+    [cartProduct.selectedImage]
+  );
 
   const handleQtyIncrease = useCallback(() => {
     //limit product to 10 /test
     if (cartProduct.quantity === 10) {
-      return;
+      return toast.error(" Maximum reached.");
     }
 
     setCartProduct((prev) => {
@@ -97,7 +101,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
   const handleQtyDecrease = useCallback(() => {
     //cant go in minus
     if (cartProduct.quantity === 1) {
-      return;
+      return toast.error("Minimum reached.");
     }
 
     setCartProduct((prev) => {

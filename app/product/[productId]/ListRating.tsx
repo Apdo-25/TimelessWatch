@@ -4,9 +4,12 @@ import Heading from "@/app/components/Heading";
 import moment from "moment";
 import { Rating } from "@mui/material";
 import Avatar from "@/app/components/Avatar";
+import { Product, Review } from "@prisma/client";
 
 interface ListRatingProps {
-  product: any;
+  product: Product & {
+    reviews: Review[];
+  };
 }
 const ListRating: React.FC<ListRatingProps> = ({ product }) => {
   if (!product.reviews || product.reviews.length === 0) return null;

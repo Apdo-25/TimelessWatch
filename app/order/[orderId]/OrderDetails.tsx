@@ -18,7 +18,7 @@ const OrderDetails: React.FC<OrderDetailsProps> = ({ order }) => {
 
   useEffect(() => {
     router.refresh();
-  }, [router]);
+  }, []);
 
   return (
     <div className="max-w-[1150px] m-auto flex flex-col gap-2">

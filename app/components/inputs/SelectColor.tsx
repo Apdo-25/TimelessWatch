@@ -28,25 +28,19 @@ const SelectColor: React.FC<SelectColorProps> = ({
     }
   }, [isProductCreated]);
 
-  const handleFileChange = useCallback(
-    (value: File) => {
-      setFile(value);
-      addImageToState({ ...item, image: value, colorCode: item.colorCode });
-    },
-    [addImageToState, item]
-  );
+  const handleFileChange = useCallback((value: File) => {
+    setFile(value);
+    addImageToState({ ...item, image: value });
+  }, []);
 
-  const handleCheck = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      setIsSelected(e.target.checked);
+  const handleCheck = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    setIsSelected(e.target.checked);
 
-      if (!e.target.checked) {
-        setFile(null);
-        removeImageFromState(item);
-      }
-    },
-    [item, removeImageFromState]
-  );
+    if (!e.target.checked) {
+      setFile(null);
+      removeImageFromState(item);
+    }
+  }, []);
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-1 gap-3 overflow-y-auto border-b-[1.2px] border-slate-200 items-center p-2">

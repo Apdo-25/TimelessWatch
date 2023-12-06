@@ -6,6 +6,7 @@ import Footer from "./components/footer/Footer";
 import CartProvider from "@/providers/CartProvider";
 import { ThemeProvider } from "@/providers/ThemeProvider";
 import { Toaster } from "react-hot-toast";
+import getCurrentUser from "@/actions/getCurrentUser";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -18,14 +19,16 @@ export const metadata: Metadata = {
     template: "%s | Timeless Watch",
     default: "Timeless Watch",
   },
-  description: "Ecommerce Watch App",
+  description: "Online e-commerce store for watches.",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const currentUser = await getCurrentUser();
+
   return (
     <html lang="da">
       <body className={`${poppins.className} text-slate-700`}>
@@ -41,7 +44,7 @@ export default function RootLayout({
         <CartProvider>
           <ThemeProvider>
             <div className="flex flex-col min-h-screen">
-              <Navbar />
+              <Navbar currentUser={currentUser} />
               <main className="flex-grow">{children}</main>
               <Footer />
             </div>

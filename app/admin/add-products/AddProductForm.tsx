@@ -61,7 +61,6 @@ const AddProductForm = () => {
 
   useEffect(() => {
     setCustomValue("images", images);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [images]);
 
   useEffect(() => {
@@ -70,7 +69,7 @@ const AddProductForm = () => {
       setImages(null);
       setIsProductCreated(false);
     }
-  }, [isProductCreated, reset]);
+  }, [isProductCreated]);
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     //upload image to firebase

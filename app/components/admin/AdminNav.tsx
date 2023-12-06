@@ -21,21 +21,21 @@ const AdminNav = () => {
             <AdminNavItem
               label="Summary"
               icon={MdDashboard}
-              selected={pathname === "/admin"}
+              selected={pathname === "/admin" ? true : false}
             />
           </Link>
           <Link href="/admin/add-products">
             <AdminNavItem
               label="Add Products"
               icon={MdLibraryAdd}
-              selected={pathname === "/admin/add-products"}
+              selected={pathname === "/admin/add-products" ? true : false}
             />
           </Link>
           <Link href="/admin/manage-products">
             <AdminNavItem
               label="Manage Products"
               icon={MdDns}
-              selected={pathname === "/admin/manage-products"}
+              selected={pathname === "/admin/manage-products" ? true : false}
             />
           </Link>
           <Link href="/admin/manage-orders">
