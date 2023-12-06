@@ -9,7 +9,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
 });
 const calculateOrderAmount = (items: CartProduct[]) => {
   const totalPrice = items.reduce((acc, item) => {
-    const itemTotal = item.price * item.quantity;
+    const itemTotal = item.price * 100 * item.quantity; // Convert to smallest unit
     return acc + itemTotal;
   }, 0);
   return totalPrice;
@@ -24,7 +24,7 @@ export async function POST(request: Request) {
 
   const body = await request.json();
   const { items, payment_intent_id } = body;
-  const total = calculateOrderAmount(items) * 100;
+  const total = calculateOrderAmount(items);
 
   const orderData = {
     user: { connect: { id: currentUser?.id } },
