@@ -32,7 +32,7 @@ const ManageProductsClient: React.FC<ManageProductsClientProps> = ({
 
   useEffect(() => {
     router.refresh();
-  }, []);
+  });
 
   let rows: any = [];
   if (products) {
@@ -121,54 +121,60 @@ const ManageProductsClient: React.FC<ManageProductsClientProps> = ({
     },
   ];
 
-  const handleToggleStock = useCallback((id: string, inStock: boolean) => {
-    axios
-      .put("/api/product", {
-        id,
-        inStock: !inStock,
-      })
-      .then((res) => {
-        toast.success("Product status changed");
-        router.refresh();
-      })
-      .catch((err) => {
-        toast.error("Something went wong");
-        console.log(err);
+  const handleToggleStock = useCallback(
+    (id: string, inStock: boolean) => {
+      axios
+        .put("/api/product", {
+          id,
+          inStock: !inStock,
+        })
+        .then((res) => {
+          toast.success("Product status changed");
+          router.refresh();
+        })
+        .catch((err) => {
+          toast.error("Something went wong");
+          console.log(err);
+        });
+    },
+    [router]
+  );
+
+  const handleDelete = useCallback(
+    async (id: string, images: any[]) => {
+      toast("Deleting product, please wait!", {
+        icon: "🔃",
       });
-  }, []);
 
-  const handleDelete = useCallback(async (id: string, images: any[]) => {
-    toast("Deleting product, please wait!", {
-      icon: "🔃",
-    });
-
-    const handleImageDelete = async () => {
-      try {
-        for (const item of images) {
-          if (item.image) {
-            const imageRef = ref(storage, item.image);
-            await deleteObject(imageRef);
-            console.log("Image deleted successfully.", item.image);
+      const handleImageDelete = async () => {
+        try {
+          for (const item of images) {
+            if (item.image) {
+              const imageRef = ref(storage, item.image);
+              await deleteObject(imageRef);
+              console.log("Image deleted successfully.", item.image);
+            }
           }
+        } catch (err) {
+          return console.log("Deleting images error", err);
         }
-      } catch (err) {
-        return console.log("Deleting images error", err);
-      }
-    };
+      };
 
-    await handleImageDelete();
+      await handleImageDelete();
 
-    axios
-      .delete(`/api/product/${id}`)
-      .then((res) => {
-        toast.success("Product deleted!");
-        router.refresh();
-      })
-      .catch((err) => {
-        toast.error("Oops! Error when deleting a product.");
-        console.log(err);
-      });
-  }, []);
+      axios
+        .delete(`/api/product/${id}`)
+        .then((res) => {
+          toast.success("Product deleted!");
+          router.refresh();
+        })
+        .catch((err) => {
+          toast.error("Oops! Error when deleting a product.");
+          console.log(err);
+        });
+    },
+    [router, storage]
+  );
 
   return (
     <div className="max-w-[1150px] m-auto text-xl">

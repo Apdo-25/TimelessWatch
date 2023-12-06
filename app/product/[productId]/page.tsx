@@ -5,7 +5,7 @@ import { Metadata } from "next";
 import getProductById from "@/actions/getProductsById";
 import NullData from "@/app/components/NullData";
 import AddRating from "./AddRating";
-import { getCurrentUser } from "@/actions/getCurrentUser";
+import getCurrentUser from "@/actions/getCurrentUser";
 
 interface IPrams {
   productId?: string;

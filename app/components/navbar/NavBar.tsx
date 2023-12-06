@@ -3,8 +3,8 @@ import Link from "next/link";
 import { Chivo } from "next/font/google";
 import CartCount from "./CartCount";
 import UserMenu from "./UserMenu";
-import { getCurrentUser } from "@/actions/getCurrentUser";
-import { ThemeSwitcher } from "../ThemeSwitcher";
+import getCurrentUser from "@/actions/getCurrentUser";
+
 import SearchBar from "./SearchBar";
 
 const chivo = Chivo({ subsets: ["latin"], weight: ["400"] });

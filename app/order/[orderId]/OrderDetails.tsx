@@ -6,12 +6,7 @@ import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
 import { formatPrice } from "../../../utils/formatPrice";
 import Status from "@/app/components/Status";
-import {
-  MdAccessTimeFilled,
-  MdClose,
-  MdDeliveryDining,
-  MdDone,
-} from "react-icons/md";
+import { MdAccessTimeFilled, MdDeliveryDining, MdDone } from "react-icons/md";
 import moment from "moment";
 import OrderItem from "./OrderItem";
 
@@ -23,7 +18,7 @@ const OrderDetails: React.FC<OrderDetailsProps> = ({ order }) => {
 
   useEffect(() => {
     router.refresh();
-  }, []);
+  }, [router]);
 
   return (
     <div className="max-w-[1150px] m-auto flex flex-col gap-2">

@@ -1,4 +1,4 @@
-import { getCurrentUser } from "@/actions/getCurrentUser";
+import getCurrentUser from "@/actions/getCurrentUser";
 import Container from "@/app/components/Container";
 import FormWrap from "@/app/components/FormWrap";
 import NullData from "@/app/components/NullData";

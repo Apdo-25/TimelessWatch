@@ -4,7 +4,6 @@ import Heading from "@/app/components/Heading";
 import moment from "moment";
 import { Rating } from "@mui/material";
 import Avatar from "@/app/components/Avatar";
-import Image from "next/image";
 
 interface ListRatingProps {
   product: any;
