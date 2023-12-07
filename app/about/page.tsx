@@ -41,9 +41,10 @@ const AboutPage = () => {
             Our Mission
           </h2>
           <p className="mt-4 text-center text-lg text-gray-600">
-            Explain your company mission, vision, and values here. This section
-            should resonate with your audience and give them insight into what
-            drives your company.
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eum nulla
+            obcaecati architecto voluptas minima. In nam odit voluptas non,
+            facere voluptate dignissimos ratione ex doloremque? Aliquam totam
+            voluptatibus possimus non.
           </p>
         </section>
       </div>
