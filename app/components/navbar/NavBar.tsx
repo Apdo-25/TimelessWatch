@@ -28,11 +28,11 @@ const Navbar: React.FC<NavBarProps> = async ({ currentUser }) => {
             <div className="hidden md:block">
               <SearchBar />
             </div>
-            <div className="flex items-center gap-8 md:gap-12">
-              <Link href="/contact" passHref>
+            <div className="flex items-center gap-8 md:gap-12 ">
+              <Link href="/contact" passHref className="hidden md:block">
                 Contact
               </Link>
-              <Link href="/about" passHref>
+              <Link href="/about" passHref className="hidden md:block">
                 About
               </Link>
               <CartCount />

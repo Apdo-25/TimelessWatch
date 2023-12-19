@@ -29,7 +29,7 @@ const ContactForm = () => {
       toast.success("Message sent successfully");
       reset();
     } catch (error) {
-      toast.error("Failed to send message");
+      toast.error("Failed to send, log in to use contact form");
       console.error("Contact form submission error:", error);
     }
   };
